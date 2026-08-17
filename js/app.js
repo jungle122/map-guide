@@ -7,7 +7,7 @@
     window.SpotCardModule.init();
     var debugMode = new URLSearchParams(window.location.search).get("debug") === "1";
     document.getElementById("toggleAnnotator").hidden = !debugMode;
-    var mapApi = window.MapModule.init(window.SPOT_DATA, window.REGION_DATA);
-    window.AnnotatorModule.init(mapApi);
+    var mapApi = window.MapModule.init(window.SPOT_DATA);
+    window.AnnotatorModule.init(mapApi, window.SPOT_DATA);
   });
 })();

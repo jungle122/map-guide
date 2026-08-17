@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f7f2">
-  <meta name="description" content="粤韵童行黄连古村互动导览地图测试版">
-  <title>黄连古村互动导览（测试版）</title>
+  <meta name="description" content="粤韵童行黄连古村互动导览地图">
+  <title>黄连古村互动导览</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/map.css">
@@ -17,7 +17,7 @@
       <div class="brand-lockup">
         <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
         <div>
-          <p>粤韵童行 · 互动导览测试版</p>
+          <p>粤韵童行 · 互动导览</p>
           <h1>黄连古村</h1>
         </div>
       </div>
@@ -28,12 +28,7 @@
       <section class="map-shell" aria-label="黄连古村互动导览地图">
         <div id="mapViewport" class="map-viewport" tabindex="0" aria-describedby="mapHint">
           <div id="mapCanvas" class="map-canvas">
-            <img class="map-image" src="assets/map/huanglian-placeholder.jpg" alt="黄连古村测试用手绘导览地图" draggable="false">
-            <svg id="regionLayer" class="region-layer" viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="测试导览区域"></svg>
-            <svg id="annotationLayer" class="annotation-layer" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              <polyline id="polygonDraft" points="" />
-              <g id="polygonVertices"></g>
-            </svg>
+            <img class="map-image" src="assets/map/huanglian-map.jpg" alt="黄连古村手绘导览地图" draggable="false">
           </div>
           <div id="hotspotLayer" class="hotspot-layer"></div>
           <div id="hotspotLabelLayer" class="hotspot-label-layer" aria-hidden="true"></div>
@@ -47,22 +42,13 @@
           <button id="resetView" class="reset-button" type="button">复位</button>
         </div>
 
-        <div class="map-context" aria-live="polite">
-          <span id="contextSwatch" class="context-swatch" aria-hidden="true"></span>
-          <div>
-            <strong id="mapContextTitle">浏览整张地图</strong>
-            <span id="mapContextHint">点击测试区域可查看点亮效果</span>
-          </div>
-          <button id="clearRegion" type="button" hidden>查看全图</button>
-        </div>
-
         <section id="spotQuickCard" class="spot-card" aria-labelledby="spotCardTitle" hidden>
           <button id="closeSpotCard" class="spot-card-close" type="button" aria-label="收起地点卡片">×</button>
           <div class="spot-card-sign" aria-hidden="true"><span></span></div>
           <div class="spot-card-copy">
             <p>当前地点</p>
             <h2 id="spotCardTitle"></h2>
-            <span id="spotCardStatus">测试资料 · 真实位置待补充</span>
+            <span id="spotCardStatus">童谣导览 · 真实导航待补充</span>
           </div>
           <div class="spot-card-actions">
             <button id="viewSpotDetail" class="spot-card-secondary" type="button">查看介绍</button>
@@ -71,7 +57,7 @@
         </section>
 
         <p id="mapHint" class="map-hint">单指拖动 · 双指或滚轮缩放</p>
-        <p class="placeholder-notice">临时测试底图 · 1080 × 757 · 非正式素材</p>
+        <p class="placeholder-notice">首批 4 个童谣景点 · 内容持续完善中</p>
       </section>
 
       <aside id="annotatorPanel" class="annotator-panel" hidden aria-labelledby="annotatorTitle">
@@ -82,18 +68,21 @@
           </div>
           <button id="closeAnnotator" type="button" aria-label="关闭坐标标注">×</button>
         </div>
-        <p>点击地图读取百分比坐标；拖动测试热点可微调位置。</p>
+        <p>先选择景点，再点击地图放置；也可以直接拖动大头针微调。</p>
+        <label class="spot-selector">
+          <span>当前景点</span>
+          <select id="annotationSpot"></select>
+        </label>
         <div class="coordinate-readout">
           <label>X <output id="coordinateX">--</output>%</label>
           <label>Y <output id="coordinateY">--</output>%</label>
           <button id="copyCoordinate" type="button" disabled>复制坐标</button>
         </div>
-        <div class="polygon-controls">
-          <button id="togglePolygon" type="button" aria-pressed="false">开始记录多边形</button>
-          <button id="copyPolygon" type="button" disabled>复制顶点</button>
-          <button id="clearPolygon" class="quiet-button" type="button" disabled>清空</button>
+        <div class="annotation-actions">
+          <button id="copyAllCoordinates" type="button">复制全部坐标</button>
         </div>
-        <output id="annotationStatus" class="status-message" aria-live="polite">标注模式已开启。</output>
+        <div id="coordinateList" class="coordinate-list"></div>
+        <output id="annotationStatus" class="status-message" aria-live="polite">请选择景点后点击地图。</output>
       </aside>
     </main>
   </div>
@@ -129,7 +118,10 @@
   </div>
 
   <script src="js/data.js" defer></script>
-  <script src="js/regions.js" defer></script>
+  <script src="js/spots/shishijiao.js" defer></script>
+  <script src="js/spots/tianhou-xiancan.js" defer></script>
+  <script src="js/spots/longshi.js" defer></script>
+  <script src="js/spots/jiyaxiang.js" defer></script>
   <script src="js/media.js" defer></script>
   <script src="js/modal.js" defer></script>
   <script src="js/navigation.js" defer></script>

@@ -14,47 +14,76 @@
     return successful ? Promise.resolve() : Promise.reject(new Error("copy failed"));
   }
 
-  function init(mapApi) {
+  function init(mapApi, spots) {
     var toggle = document.getElementById("toggleAnnotator");
     var closeButton = document.getElementById("closeAnnotator");
     var panel = document.getElementById("annotatorPanel");
+    var selector = document.getElementById("annotationSpot");
     var xOutput = document.getElementById("coordinateX");
     var yOutput = document.getElementById("coordinateY");
     var copyCoordinate = document.getElementById("copyCoordinate");
-    var polygonToggle = document.getElementById("togglePolygon");
-    var copyPolygon = document.getElementById("copyPolygon");
-    var clearPolygon = document.getElementById("clearPolygon");
+    var copyAllCoordinates = document.getElementById("copyAllCoordinates");
+    var coordinateList = document.getElementById("coordinateList");
     var status = document.getElementById("annotationStatus");
-    var draft = document.getElementById("polygonDraft");
-    var vertices = document.getElementById("polygonVertices");
-    var current = null;
-    var polygonPoints = [];
-    var polygonMode = false;
+    var positions = {};
+    var currentSpotId = spots[0] ? spots[0].id : "";
     var downPoint = null;
 
-    function setStatus(message) { status.value = message; }
-    function format(point) { return "{ x: " + point.x.toFixed(2) + ", y: " + point.y.toFixed(2) + " }"; }
+    spots.forEach(function (spot) {
+      positions[spot.id] = { x: spot.x, y: spot.y };
+      var option = document.createElement("option");
+      option.value = spot.id;
+      option.textContent = spot.mapNumber + " · " + spot.name;
+      selector.appendChild(option);
+    });
 
-    function updatePoint(point) {
-      current = point;
-      xOutput.value = point.x.toFixed(2);
-      yOutput.value = point.y.toFixed(2);
-      copyCoordinate.disabled = false;
+    function currentSpot() {
+      return spots.find(function (spot) { return spot.id === currentSpotId; });
     }
 
-    function renderPolygon() {
-      draft.setAttribute("points", polygonPoints.map(function (point) { return point.x.toFixed(2) + "," + point.y.toFixed(2); }).join(" "));
-      vertices.replaceChildren();
-      polygonPoints.forEach(function (point) {
-        var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttribute("class", "polygon-vertex");
-        circle.setAttribute("cx", point.x);
-        circle.setAttribute("cy", point.y);
-        circle.setAttribute("r", "0.65");
-        vertices.appendChild(circle);
+    function format(point) {
+      return "{ x: " + point.x.toFixed(2) + ", y: " + point.y.toFixed(2) + " }";
+    }
+
+    function setStatus(message) { status.value = message; }
+
+    function renderList() {
+      coordinateList.replaceChildren();
+      spots.forEach(function (spot) {
+        var row = document.createElement("button");
+        row.type = "button";
+        row.className = "coordinate-row";
+        row.classList.toggle("is-active", spot.id === currentSpotId);
+        var point = positions[spot.id];
+        var name = document.createElement("span");
+        name.textContent = spot.mapNumber + " · " + spot.name;
+        var value = document.createElement("code");
+        value.textContent = point.x.toFixed(2) + ", " + point.y.toFixed(2);
+        row.append(name, value);
+        row.addEventListener("click", function () {
+          selectSpot(spot.id);
+          selector.focus({ preventScroll: true });
+        });
+        coordinateList.appendChild(row);
       });
-      copyPolygon.disabled = polygonPoints.length < 3;
-      clearPolygon.disabled = polygonPoints.length === 0;
+    }
+
+    function selectSpot(spotId) {
+      currentSpotId = spotId;
+      selector.value = spotId;
+      var point = positions[spotId];
+      if (point) {
+        xOutput.value = point.x.toFixed(2);
+        yOutput.value = point.y.toFixed(2);
+        copyCoordinate.disabled = false;
+      }
+      renderList();
+    }
+
+    function updatePosition(spotId, point) {
+      positions[spotId] = { x: point.x, y: point.y };
+      mapApi.setHotspotPosition(spotId, point);
+      selectSpot(spotId);
     }
 
     function setEnabled(enabled) {
@@ -62,13 +91,13 @@
       toggle.setAttribute("aria-pressed", String(enabled));
       toggle.textContent = enabled ? "关闭标注" : "坐标标注";
       panel.hidden = !enabled;
-      if (!enabled) {
-        polygonMode = false;
-        polygonToggle.setAttribute("aria-pressed", "false");
-        polygonToggle.textContent = "开始记录多边形";
-      }
+      if (enabled && currentSpotId) selectSpot(currentSpotId);
     }
 
+    selector.addEventListener("change", function () {
+      selectSpot(selector.value);
+      setStatus("已选择“" + currentSpot().name + "”，请点击地图或拖动它的大头针。");
+    });
     toggle.addEventListener("click", function () { setEnabled(!mapApi.isAnnotating()); });
     closeButton.addEventListener("click", function () { setEnabled(false); toggle.focus({ preventScroll: true }); });
 
@@ -80,14 +109,8 @@
       if (!mapApi.isAnnotating() || !downPoint || event.target.closest(".hotspot")) return;
       if (Math.hypot(event.clientX - downPoint.x, event.clientY - downPoint.y) < 5) {
         var point = mapApi.clientToPercent(event.clientX, event.clientY);
-        updatePoint(point);
-        if (polygonMode) {
-          polygonPoints.push(point);
-          renderPolygon();
-          setStatus("已记录第 " + polygonPoints.length + " 个顶点。");
-        } else {
-          setStatus("已读取坐标 " + format(point));
-        }
+        updatePosition(currentSpotId, point);
+        setStatus("“" + currentSpot().name + "”已放置为 " + format(point));
       }
       downPoint = null;
     });
@@ -98,6 +121,7 @@
         if (!mapApi.isAnnotating() || !event.target.closest(".hotspot")) return;
         event.preventDefault();
         event.stopPropagation();
+        selectSpot(marker.dataset.spotId);
         marker.setPointerCapture(event.pointerId);
         drag = { startX: event.clientX, startY: event.clientY, moved: false };
         marker.querySelector(".hotspot").classList.add("is-dragging");
@@ -105,38 +129,32 @@
       marker.addEventListener("pointermove", function (event) {
         if (!drag) return;
         if (Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) > 3) drag.moved = true;
-        var point = mapApi.clientToPercent(event.clientX, event.clientY);
-        mapApi.setHotspotPosition(marker.dataset.spotId, point);
-        updatePoint(point);
+        updatePosition(marker.dataset.spotId, mapApi.clientToPercent(event.clientX, event.clientY));
       });
       marker.addEventListener("pointerup", function () {
         if (!drag) return;
         marker.dataset.wasDragged = String(drag.moved);
         marker.querySelector(".hotspot").classList.remove("is-dragging");
-        if (current) setStatus(marker.querySelector(".hotspot").getAttribute("aria-label").replace("查看", "") + " 已调整为 " + format(current));
+        var spot = currentSpot();
+        setStatus("“" + spot.name + "”已调整为 " + format(positions[spot.id]));
         drag = null;
       });
     });
 
     copyCoordinate.addEventListener("click", function () {
-      if (!current) return;
-      copyText(format(current)).then(function () { setStatus("坐标已复制。"); }).catch(function () { setStatus("复制失败，请手动记录坐标。"); });
+      var spot = currentSpot();
+      var text = "x: " + positions[spot.id].x.toFixed(2) + ", y: " + positions[spot.id].y.toFixed(2);
+      copyText(text).then(function () { setStatus("“" + spot.name + "”坐标已复制。"); }).catch(function () { setStatus("复制失败，请手动记录坐标。"); });
     });
-    polygonToggle.addEventListener("click", function () {
-      polygonMode = !polygonMode;
-      polygonToggle.setAttribute("aria-pressed", String(polygonMode));
-      polygonToggle.textContent = polygonMode ? "结束记录多边形" : "开始记录多边形";
-      setStatus(polygonMode ? "请依次点击地图边界顶点。" : "多边形记录已暂停。");
+    copyAllCoordinates.addEventListener("click", function () {
+      var text = spots.map(function (spot) {
+        var point = positions[spot.id];
+        return spot.name + ": { x: " + point.x.toFixed(2) + ", y: " + point.y.toFixed(2) + " }";
+      }).join("\n");
+      copyText(text).then(function () { setStatus("四个景点坐标已全部复制。"); }).catch(function () { setStatus("复制失败，请逐项记录坐标。"); });
     });
-    copyPolygon.addEventListener("click", function () {
-      var text = "[" + polygonPoints.map(function (point) { return "[" + point.x.toFixed(2) + ", " + point.y.toFixed(2) + "]"; }).join(", ") + "]";
-      copyText(text).then(function () { setStatus("SVG 多边形顶点已复制。"); }).catch(function () { setStatus("复制失败，请手动记录顶点。"); });
-    });
-    clearPolygon.addEventListener("click", function () {
-      polygonPoints = [];
-      renderPolygon();
-      setStatus("多边形顶点已清空。");
-    });
+
+    if (currentSpotId) selectSpot(currentSpotId);
   }
 
   window.AnnotatorModule = { init: init };

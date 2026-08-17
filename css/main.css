@@ -128,9 +128,11 @@ button:focus-visible, [tabindex]:focus-visible {
 .annotator-heading button { width: 34px; height: 34px; padding: 0; border: 0; border-radius: 50%; color: white; background: var(--moss-dark); font-size: 1.4rem; cursor: pointer; }
 .annotator-panel > p { color: var(--ink-soft); font-size: 0.86rem; line-height: 1.65; }
 
-.coordinate-readout, .polygon-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.spot-selector { display: grid; gap: 6px; margin-top: 14px; color: var(--ink-soft); font-size: 0.75rem; font-weight: 700; }
+.spot-selector select { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid rgba(63,99,60,0.24); border-radius: 12px; color: var(--ink); background: white; font: inherit; }
+.coordinate-readout, .annotation-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .coordinate-readout label { min-width: 100px; padding: 0.7rem 0.85rem; border-radius: 12px; background: #e2ebdf; font-variant-numeric: tabular-nums; }
-.coordinate-readout button, .polygon-controls button {
+.coordinate-readout button, .annotation-actions button {
   border: 0;
   border-radius: 999px;
   padding: 0.68rem 0.9rem;
@@ -138,8 +140,12 @@ button:focus-visible, [tabindex]:focus-visible {
   background: var(--moss-dark);
   cursor: pointer;
 }
-.coordinate-readout button:disabled, .polygon-controls button:disabled { cursor: not-allowed; opacity: 0.45; }
-.polygon-controls .quiet-button { color: var(--brick); background: transparent; }
+.coordinate-readout button:disabled { cursor: not-allowed; opacity: 0.45; }
+.coordinate-list { display: grid; gap: 6px; margin-top: 12px; }
+.coordinate-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; width: 100%; padding: 9px 10px; border: 1px solid transparent; border-radius: 11px; color: var(--ink); background: rgba(255,255,255,0.62); text-align: left; cursor: pointer; }
+.coordinate-row span { overflow: hidden; font-size: 0.76rem; text-overflow: ellipsis; white-space: nowrap; }
+.coordinate-row code { color: var(--ink-soft); font-size: 0.72rem; font-variant-numeric: tabular-nums; }
+.coordinate-row.is-active { border-color: rgba(185,78,61,0.42); background: rgba(185,78,61,0.08); }
 .status-message { display: block; min-height: 1.4em; margin-top: 12px; color: var(--water-deep); font-size: 0.82rem; }
 
 @media (max-width: 640px) {

@@ -1,6 +1,6 @@
 # 测试音频
 
-`test-audio.mp3` 是 MDN HTML `<audio>` 文档使用的短测试音，仅用于验证播放、互斥与关闭清理行为，不是正式素材。
+首批正式童谣音频：`yueguangguang.mp3`、`dangdangzhuan.mp3`、`qiqiwangguoqu.mp3`。文件由团队素材目录复制并规范化命名，未改动原文件。
 
 来源：<https://developer.mozilla.org/shared-assets/audio/t-rex-roar.mp3>
 

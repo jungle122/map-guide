@@ -37,7 +37,7 @@
       title.textContent = "前往" + spot.name;
       hint.textContent = hasCoordinates(spot)
         ? "请选择常用地图。微信内将优先使用可访问的网页路线。"
-        : "该测试地点还没有真实经纬度，当前用于预览导航入口。";
+        : "该地点还没有真实经纬度，当前可预览导航入口，暂不会跳转。";
       status.value = "";
       sheet.querySelectorAll("[data-map-provider]").forEach(function (button) {
         button.classList.toggle("is-unavailable", !hasCoordinates(spot));

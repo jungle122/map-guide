@@ -36,7 +36,7 @@
       body.className = "modal-body";
       var kicker = document.createElement("p");
       kicker.className = "modal-kicker";
-      kicker.textContent = "测试景点 · 内容待替换";
+      kicker.textContent = "童谣《" + spot.song + "》 · 地图编号 " + spot.mapNumber;
       var title = document.createElement("h2");
       title.id = "modalTitle";
       title.textContent = spot.name;
@@ -50,7 +50,7 @@
         spot.images.forEach(function (src, index) {
           var image = document.createElement("img");
           image.src = src;
-          image.alt = spot.name + "测试图片 " + (index + 1);
+          image.alt = spot.name + "图片 " + (index + 1);
           image.loading = "lazy";
           gallery.appendChild(image);
         });
@@ -65,7 +65,7 @@
         audio.src = spot.audio;
         var note = document.createElement("p");
         note.className = "media-note";
-        note.textContent = "测试媒体：不会自动播放。";
+        note.textContent = "音频不会自动播放；切换媒体时会自动暂停上一段。";
         audioWrap.append(audio, note);
         body.appendChild(createSection("音频介绍", audioWrap));
       }
@@ -97,4 +97,3 @@
 
   window.ModalModule = { init: init };
 })();
-

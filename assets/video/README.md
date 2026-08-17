@@ -1,6 +1,6 @@
 # 测试视频
 
-`test-video.mp4` 是 MDN 示例短视频，仅用于验证播放、互斥、微信行内播放与关闭清理行为，不是正式素材。
+首批正式童谣视频：`yueguangguang.mp4`、`dangdangzhuan.mp4`、`qiqiwangguoqu.mp4`。文件由团队素材目录复制并规范化命名，使用景点首图作为封面。
 
 来源：<https://developer.mozilla.org/shared-assets/videos/flower.mp4>
 
