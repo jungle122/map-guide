@@ -1,9 +1,12 @@
 (function () {
   "use strict";
 
-  var MAP_WIDTH = 1080;
-  var MAP_HEIGHT = 757;
+  // Keep the interactive coordinate system aligned with the original map.
+  // Hotspots use percentages, so their existing coordinates remain valid.
+  var MAP_WIDTH = 8091;
+  var MAP_HEIGHT = 5669;
   var INITIAL_FOCUS = { x: 0.45, y: 0.45 };
+  var INITIAL_ZOOM = 1;
 
   function init(spots) {
     var viewport = document.getElementById("mapViewport");
@@ -45,8 +48,10 @@
     function reset() {
       state.minScale = Math.min(viewport.clientWidth / MAP_WIDTH, viewport.clientHeight / MAP_HEIGHT);
       state.baseScale = Math.max(viewport.clientWidth / MAP_WIDTH, viewport.clientHeight / MAP_HEIGHT);
-      state.maxScale = state.baseScale * 3;
-      state.scale = state.baseScale;
+      // Allow users to reach the source image's native pixel density.
+      state.maxScale = Math.max(1, state.baseScale * 3);
+      // Keep the default viewport at 100%; the source pixels remain available on zoom.
+      state.scale = Math.min(state.maxScale, state.baseScale * INITIAL_ZOOM);
       state.x = viewport.clientWidth / 2 - MAP_WIDTH * INITIAL_FOCUS.x * state.scale;
       state.y = viewport.clientHeight / 2 - MAP_HEIGHT * INITIAL_FOCUS.y * state.scale;
       clamp();

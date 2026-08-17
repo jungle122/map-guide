@@ -20,10 +20,9 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 1080px;
-  height: 757px;
+  width: 8091px;
+  height: 5669px;
   transform-origin: 0 0;
-  will-change: transform;
 }
 
 .map-image {
@@ -31,11 +30,8 @@
   inset: 0;
   width: 100%;
   height: 100%;
-}
-.map-image {
   display: block;
   pointer-events: none;
-  filter: saturate(0.98) contrast(1.02);
 }
 .hotspot-layer {
   position: absolute;
