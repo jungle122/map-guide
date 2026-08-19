@@ -94,6 +94,7 @@ body.modal-open { overflow: hidden; }
   text-align: left;
   cursor: pointer;
 }
+.navigation-options > button[hidden] { display: none; }
 .navigation-options > button:hover { border-color: rgba(63,99,60,0.38); background: white; }
 .navigation-options > button.is-unavailable { opacity: 0.64; }
 .navigation-options > button > span:nth-child(2) { display: grid; gap: 2px; }

@@ -55,11 +55,12 @@
     return {
       amap: "https://uri.amap.com/navigation?to=" + lng + "," + lat + "," + encodeURIComponent(name) +
         "&mode=walk&coordinate=gaode&callnative=0&src=" + SRC_NAME,
-      baidu: "https://api.map.baidu.com/direction?destination=" + lat + "," + lng +
+      baidu: "https://api.map.baidu.com/direction?origin=" + encodeURIComponent("我的位置") +
+        "&destination=" + encodeURIComponent("name:" + name + "|latlng:" + lat + "," + lng) +
         "&coord_type=gcj02&mode=walking&region=" + encodeURIComponent("佛山市") +
-        "&output=html&src=" + SRC_NAME,
-      tencent: "https://apis.map.qq.com/uri/v1/route?to=" + lat + "," + lng + "," + encodeURIComponent(name) +
-        "&type=walk&referer=" + SRC_NAME,
+        "&output=html&src=webapp.huanglian.map",
+      tencent: "https://apis.map.qq.com/uri/v1/routeplan?type=walk&to=" + encodeURIComponent(name) +
+        "&tocoord=" + lat + "," + lng + "&referer=" + SRC_NAME,
       apple: "https://maps.apple.com/?daddr=" + wgs.lat + "," + wgs.lng +
         "&q=" + encodeURIComponent(name) + "&dirflg=w"
     };
@@ -115,16 +116,8 @@
         var provider = button.getAttribute("data-map-provider");
         var providerLabel = button.querySelector("strong").textContent;
         var url = buildNavigationUrls(currentSpot)[provider];
-        var opened = null;
-        try {
-          opened = window.open(url, "_blank", "noopener");
-        } catch (error) {
-          opened = null;
-        }
-        if (!opened) {
-          window.location.href = url;
-        }
         status.value = "正在打开" + providerLabel + "网页路线；若没有跳转，可复制地点信息后手动搜索。";
+        window.location.assign(url);
       });
     });
 
