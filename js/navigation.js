@@ -1,6 +1,39 @@
 (function () {
   "use strict";
 
+  var GCJ_PI = 3.14159265358979324;
+  var GCJ_A = 6378245.0;
+  var GCJ_EE = 0.00669342162296594323;
+  var SRC_NAME = "huanglian-map";
+
+  function transformLat(x, y) {
+    var ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * Math.sqrt(Math.abs(x));
+    ret += (20.0 * Math.sin(6.0 * x * GCJ_PI) + 20.0 * Math.sin(2.0 * x * GCJ_PI)) * 2.0 / 3.0;
+    ret += (20.0 * Math.sin(y * GCJ_PI) + 40.0 * Math.sin(y / 3.0 * GCJ_PI)) * 2.0 / 3.0;
+    ret += (160.0 * Math.sin(y / 12.0 * GCJ_PI) + 320.0 * Math.sin(y * GCJ_PI / 30.0)) * 2.0 / 3.0;
+    return ret;
+  }
+
+  function transformLng(x, y) {
+    var ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * Math.sqrt(Math.abs(x));
+    ret += (20.0 * Math.sin(6.0 * x * GCJ_PI) + 20.0 * Math.sin(2.0 * x * GCJ_PI)) * 2.0 / 3.0;
+    ret += (20.0 * Math.sin(x * GCJ_PI) + 40.0 * Math.sin(x / 3.0 * GCJ_PI)) * 2.0 / 3.0;
+    ret += (150.0 * Math.sin(x / 12.0 * GCJ_PI) + 300.0 * Math.sin(x / 30.0 * GCJ_PI)) * 2.0 / 3.0;
+    return ret;
+  }
+
+  function gcj02ToWgs84(lng, lat) {
+    var dLat = transformLat(lng - 105.0, lat - 35.0);
+    var dLng = transformLng(lng - 105.0, lat - 35.0);
+    var radLat = lat / 180.0 * GCJ_PI;
+    var magic = Math.sin(radLat);
+    magic = 1 - GCJ_EE * magic * magic;
+    var sqrtMagic = Math.sqrt(magic);
+    dLat = (dLat * 180.0) / ((GCJ_A * (1 - GCJ_EE)) / (magic * sqrtMagic) * GCJ_PI);
+    dLng = (dLng * 180.0) / (GCJ_A / sqrtMagic * Math.cos(radLat) * GCJ_PI);
+    return { lng: lng - dLng, lat: lat - dLat };
+  }
+
   function copyText(text) {
     if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
     var input = document.createElement("textarea");
@@ -12,6 +45,24 @@
     var successful = document.execCommand("copy");
     input.remove();
     return successful ? Promise.resolve() : Promise.reject(new Error("copy failed"));
+  }
+
+  function buildNavigationUrls(spot) {
+    var lng = spot.longitude;
+    var lat = spot.latitude;
+    var name = spot.navName || spot.name;
+    var wgs = gcj02ToWgs84(lng, lat);
+    return {
+      amap: "https://uri.amap.com/navigation?to=" + lng + "," + lat + "," + encodeURIComponent(name) +
+        "&mode=walk&coordinate=gaode&callnative=0&src=" + SRC_NAME,
+      baidu: "https://api.map.baidu.com/direction?destination=" + lat + "," + lng +
+        "&coord_type=gcj02&mode=walking&region=" + encodeURIComponent("佛山市") +
+        "&output=html&src=" + SRC_NAME,
+      tencent: "https://apis.map.qq.com/uri/v1/route?to=" + lat + "," + lng + "," + encodeURIComponent(name) +
+        "&type=walk&referer=" + SRC_NAME,
+      apple: "https://maps.apple.com/?daddr=" + wgs.lat + "," + wgs.lng +
+        "&q=" + encodeURIComponent(name) + "&dirflg=w"
+    };
   }
 
   function init() {
@@ -34,7 +85,7 @@
     function open(spot, trigger) {
       currentSpot = spot;
       lastTrigger = trigger || document.activeElement;
-      title.textContent = "前往" + spot.name;
+      title.textContent = "前往" + (spot.navName || spot.name);
       hint.textContent = hasCoordinates(spot)
         ? "请选择常用地图。微信内将优先使用可访问的网页路线。"
         : "该地点还没有真实经纬度，当前可预览导航入口，暂不会跳转。";
@@ -61,14 +112,28 @@
           status.value = "真实坐标待补充，暂时不会跳转地图。";
           return;
         }
-        status.value = "导航链接将在正式坐标确认后接入。";
+        var provider = button.getAttribute("data-map-provider");
+        var providerLabel = button.querySelector("strong").textContent;
+        var url = buildNavigationUrls(currentSpot)[provider];
+        var opened = null;
+        try {
+          opened = window.open(url, "_blank", "noopener");
+        } catch (error) {
+          opened = null;
+        }
+        if (!opened) {
+          window.location.href = url;
+        }
+        status.value = "正在打开" + providerLabel + "网页路线；若没有跳转，可复制地点信息后手动搜索。";
       });
     });
 
     document.getElementById("copyPlaceInfo").addEventListener("click", function () {
       if (!currentSpot) return;
-      var text = currentSpot.name;
-      if (hasCoordinates(currentSpot)) text += " " + currentSpot.longitude + "," + currentSpot.latitude;
+      var text = currentSpot.navName || currentSpot.name;
+      if (hasCoordinates(currentSpot)) {
+        text += " " + currentSpot.longitude + "," + currentSpot.latitude + "（GCJ-02）";
+      }
       copyText(text).then(function () { status.value = "地点信息已复制。"; }).catch(function () { status.value = "复制失败，请手动记录地点名称。"; });
     });
     closeButton.addEventListener("click", close);
