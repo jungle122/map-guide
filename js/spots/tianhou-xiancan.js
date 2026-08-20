@@ -19,6 +19,11 @@
     images: ["assets/images/tianhou-xiancan/01.webp", "assets/images/tianhou-xiancan/02.webp", "assets/images/tianhou-xiancan/03.webp"],
     audio: "assets/audio/dangdangzhuan.mp3",
     video: "assets/video/dangdangzhuan.mp4",
-    poster: "assets/images/tianhou-xiancan/01.webp"
+    poster: "assets/images/tianhou-xiancan/01.webp",
+    baikeLinks: [
+      { name: "天后宫", url: "http://www.tcmap.com.cn/landscape/90/zhongyongtianhougong.html" },
+      { name: "先蠺庙", url: "https://www.fsonline.com.cn/FS_PLUS/1061345.html" }
+    ],
+    baikeIntro: "涌口天后宫与先蚕庙相邻，是黄连重要的民间信仰场所。天后宫供奉海神天后娘娘（妈祖），历代受官方褒封，沿海乡民常于农历三月二十三日天后诞祭祀祈福。先蚕庙则是岭南少见的专祀黄帝元妃嫘祖的庙宇，清光绪年间始建，1997年乡民捐资重修，见证了黄连作为珠三角桑园围腹地、蚕丝商贸重镇的桑蚕历史。"
   });
 })();
