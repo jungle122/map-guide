@@ -57,6 +57,17 @@
         body.appendChild(createSection("图片", gallery, "image-gallery"));
       }
 
+      if (spot.video) {
+        var video = document.createElement("video");
+        video.controls = true;
+        video.preload = "none";
+        video.playsInline = true;
+        video.setAttribute("webkit-playsinline", "true");
+        video.poster = spot.poster || "";
+        video.src = spot.video;
+        body.appendChild(createSection("视频介绍", video));
+      }
+
       if (spot.audio) {
         var audioWrap = document.createElement("div");
         var audio = document.createElement("audio");
@@ -68,17 +79,6 @@
         note.textContent = "音频不会自动播放；切换媒体时会自动暂停上一段。";
         audioWrap.append(audio, note);
         body.appendChild(createSection("音频介绍", audioWrap));
-      }
-
-      if (spot.video) {
-        var video = document.createElement("video");
-        video.controls = true;
-        video.preload = "none";
-        video.playsInline = true;
-        video.setAttribute("webkit-playsinline", "true");
-        video.poster = spot.poster || "";
-        video.src = spot.video;
-        body.appendChild(createSection("视频介绍", video));
       }
 
       content.appendChild(body);
