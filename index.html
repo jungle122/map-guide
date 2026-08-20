@@ -48,7 +48,6 @@
           <div class="spot-card-copy">
             <p>当前地点</p>
             <h2 id="spotCardTitle"></h2>
-            <span id="spotCardStatus">童谣导览 · 真实导航待补充</span>
           </div>
           <div class="spot-card-actions">
             <button id="viewSpotDetail" class="spot-card-secondary" type="button">查看介绍</button>
@@ -107,10 +106,10 @@
       </div>
       <p id="navigationHint" class="navigation-hint">接入真实经纬度后，可选择常用地图规划路线。</p>
       <div id="navigationOptions" class="navigation-options">
-        <button type="button" data-map-provider="amap"><span class="provider-mark provider-amap">高</span><span><strong>高德地图</strong><small>网页路线 · 可继续打开 App</small></span><i>›</i></button>
-        <button type="button" data-map-provider="baidu"><span class="provider-mark provider-baidu">百</span><span><strong>百度地图</strong><small>网页路线 · 可继续打开 App</small></span><i>›</i></button>
-        <button type="button" data-map-provider="tencent"><span class="provider-mark provider-tencent">腾</span><span><strong>腾讯地图</strong><small>网页路线 · 可继续打开 App</small></span><i>›</i></button>
-        <button type="button" data-map-provider="apple" data-apple-option><span class="provider-mark provider-apple">苹</span><span><strong>Apple 地图</strong><small>仅在 iPhone、iPad 和 Mac 显示</small></span><i>›</i></button>
+        <button type="button" data-map-provider="amap"><img class="provider-mark provider-amap" src="assets/icons/amap.jpg" alt="高德地图"/><span><strong>高德地图</strong></span><i>›</i></button>
+        <button type="button" data-map-provider="baidu"><img class="provider-mark provider-baidu" src="assets/icons/baidu.jpg" alt="百度地图"/><span><strong>百度地图</strong></span><i>›</i></button>
+        <button type="button" data-map-provider="tencent"><img class="provider-mark provider-tencent" src="assets/icons/tencent.jpg" alt="腾讯地图"/><span><strong>腾讯地图</strong></span><i>›</i></button>
+        <button type="button" data-map-provider="apple" data-apple-option><span class="provider-mark provider-apple"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="38" height="38"><rect width="120" height="120" rx="24" fill="#000"/><text x="60" y="75" text-anchor="middle" fill="white" font-family="Arial" font-size="50">🍎</text></svg></span><span><strong>Apple 地图</strong></span><i>›</i></button>
       </div>
       <button id="copyPlaceInfo" class="copy-place-button" type="button">复制地点信息</button>
       <output id="navigationStatus" class="navigation-status" aria-live="polite"></output>
