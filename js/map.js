@@ -79,6 +79,14 @@
       render();
     }
 
+    // 卡通图标映射表：景点ID -> 图标路径
+    var SPOT_ICONS = {
+      "longshi": "assets/icons/longshi.jpg",
+      "jiyaxiang": "assets/icons/jiyaxiang.jpg",
+      "shishijiao": "assets/icons/shishijiao.jpg",
+      "tianhou-xiancan": "assets/icons/tianhou-xiancan.jpg"
+    };
+
     spots.forEach(function (spot) {
       var anchor = document.createElement("div");
       anchor.className = "hotspot-anchor";
@@ -90,6 +98,18 @@
       marker.type = "button";
       marker.className = "hotspot";
       marker.setAttribute("aria-label", "查看" + spot.name);
+
+      // 添加卡通图标
+      var iconSrc = SPOT_ICONS[spot.id];
+      if (iconSrc) {
+        var iconImg = document.createElement("img");
+        iconImg.className = "hotspot-icon";
+        iconImg.src = iconSrc;
+        iconImg.alt = spot.name;
+        iconImg.draggable = false;
+        marker.appendChild(iconImg);
+        marker.classList.add("has-icon");
+      }
 
       var label = document.createElement("span");
       label.className = "hotspot-label";
