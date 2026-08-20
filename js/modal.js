@@ -39,7 +39,7 @@
       kicker.textContent = "童谣《" + spot.song + "》 · 地图编号 " + spot.mapNumber;
       var title = document.createElement("h2");
       title.id = "modalTitle";
-      title.textContent = spot.name;
+      title.textContent = spot.title || spot.name;
       var description = document.createElement("p");
       description.className = "modal-description";
       description.textContent = spot.description;
