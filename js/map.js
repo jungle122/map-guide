@@ -12,7 +12,6 @@
     var viewport = document.getElementById("mapViewport");
     var canvas = document.getElementById("mapCanvas");
     var hotspotLayer = document.getElementById("hotspotLayer");
-    var hotspotLabelLayer = document.getElementById("hotspotLabelLayer");
     var zoomValue = document.getElementById("zoomValue");
     var pointers = new Map();
     var state = { scale: 1, baseScale: 1, minScale: 0.4, maxScale: 3, x: 0, y: 0 };
@@ -26,14 +25,16 @@
       var y = Number(element.dataset.y);
       element.style.left = state.x + MAP_WIDTH * state.scale * x / 100 + "px";
       element.style.top = state.y + MAP_HEIGHT * state.scale * y / 100 + "px";
-      if (element.classList.contains("hotspot-label")) element.classList.toggle("is-below", y < 14);
     }
 
     function render() {
+      var zoomRatio = state.scale / state.baseScale;
+      var hotspotGroupScale = Math.max(0.55, Math.min(1, state.scale * 5.1));
+      viewport.style.setProperty("--hotspot-group-scale", hotspotGroupScale.toFixed(3));
+      viewport.dataset.zoomRatio = zoomRatio.toFixed(2);
       canvas.style.transform = "translate(" + state.x + "px," + state.y + "px) scale(" + state.scale + ")";
       zoomValue.value = Math.round((state.scale / state.baseScale) * 100) + "%";
       hotspotLayer.querySelectorAll(".hotspot-anchor").forEach(positionElement);
-      hotspotLabelLayer.querySelectorAll(".hotspot-label").forEach(positionElement);
     }
 
     function clamp() {
@@ -118,9 +119,7 @@
       if (labelHasIcon) label.classList.add("has-icon");
       label.textContent = spot.name;
       label.dataset.spotId = spot.id;
-      label.dataset.x = spot.x;
-      label.dataset.y = spot.y;
-      label.classList.toggle("is-below", spot.y < 14);
+      label.setAttribute("aria-hidden", "true");
 
       marker.addEventListener("click", function (event) {
         if (anchor.dataset.wasDragged === "true") {
@@ -130,8 +129,8 @@
         window.SpotCard.open(spot, event.currentTarget);
       });
       anchor.appendChild(marker);
+      anchor.appendChild(label);
       hotspotLayer.appendChild(anchor);
-      hotspotLabelLayer.appendChild(label);
     });
 
     viewport.addEventListener("wheel", function (event) {
@@ -206,9 +205,7 @@
       isAnnotating: function () { return annotating; },
       setHotspotPosition: function (spotId, point) {
         var marker = hotspotLayer.querySelector('[data-spot-id="' + spotId + '"]');
-        var label = hotspotLabelLayer.querySelector('[data-spot-id="' + spotId + '"]');
         if (marker) { marker.dataset.x = point.x; marker.dataset.y = point.y; positionElement(marker); }
-        if (label) { label.dataset.x = point.x; label.dataset.y = point.y; positionElement(label); }
       }
     };
   }

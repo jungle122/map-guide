@@ -56,8 +56,7 @@
   letter-spacing: 1.5px;
 }
 
-body.route-active .hotspot-layer,
-body.route-active .hotspot-label-layer {
+body.route-active .hotspot-layer {
   visibility: hidden;
   opacity: 0;
 }
