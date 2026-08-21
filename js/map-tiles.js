@@ -20,6 +20,7 @@
     var host = document.getElementById("mapViewport");
     var viewerElement = document.getElementById("mapViewer");
     var canvas = document.getElementById("mapCanvas");
+    var siteRecord = canvas.querySelector(".site-record");
     var hotspotLayer = document.getElementById("hotspotLayer");
     var zoomValue = document.getElementById("zoomValue");
     var anchors = [];
@@ -171,6 +172,14 @@
     function addMapOverlays() {
       var fullImageBounds = tiledImage.imageToViewportRectangle(0, 0, MAP_WIDTH, MAP_HEIGHT);
       viewer.addOverlay({ element: canvas, location: fullImageBounds, checkResize: false });
+      if (siteRecord) {
+        viewer.addOverlay({
+          element: siteRecord,
+          location: imagePoint(50, 100),
+          placement: window.OpenSeadragon.Placement.BOTTOM,
+          checkResize: true
+        });
+      }
       anchors.forEach(function (anchor) {
         viewer.addOverlay({
           element: anchor,

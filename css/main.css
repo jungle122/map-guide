@@ -120,7 +120,12 @@ button:focus-visible, [tabindex]:focus-visible {
   text-shadow: 0 1px 5px rgba(255,255,255,0.92);
   touch-action: manipulation;
 }
-.map-tiles-active .site-record { bottom: 1px; }
+.map-tiles-active .site-record {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+}
 .map-tiles-active .site-record a { font-size: 0.68rem; }
 .site-record a:hover { color: var(--moss-dark); text-decoration: underline; }
 .site-record a:focus-visible {
