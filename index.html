@@ -7,10 +7,10 @@
   <meta name="description" content="粤韵童行黄连古村互动导览地图">
   <title>黄连古村互动导览</title>
   <link rel="icon" href="assets/favicon-blue.jpg?v=20260821-1" type="image/jpeg">
-  <link rel="stylesheet" href="css/main.css?v=20260821-5">
-  <link rel="stylesheet" href="css/map.css?v=20260821-7">
+  <link rel="stylesheet" href="css/main.css?v=20260821-8">
+  <link rel="stylesheet" href="css/map.css?v=20260821-10">
   <link rel="stylesheet" href="css/modal.css?v=20260821-3">
-  <link rel="stylesheet" href="css/routes.css?v=20260821-8">
+  <link rel="stylesheet" href="css/routes.css?v=20260821-9">
 </head>
 <body class="map-app">
   <div class="app-shell">
@@ -35,8 +35,9 @@
     <main class="map-stage">
       <section class="map-shell" aria-label="黄连古村互动导览地图">
         <div id="mapViewport" class="map-viewport" tabindex="0" aria-describedby="mapHint">
+          <div id="mapViewer" class="map-viewer" aria-hidden="true"></div>
           <div id="mapCanvas" class="map-canvas">
-            <img class="map-image" src="assets/map/huanglian-map-preview.webp" data-full-src="assets/map/huanglian-map.jpg" alt="黄连古村手绘导览地图" draggable="false" decoding="async" fetchpriority="high">
+            <img class="map-image" data-preview-src="assets/map/huanglian-map-preview.webp" data-full-src="assets/map/huanglian-map.jpg" alt="黄连古村手绘导览地图" draggable="false" decoding="async">
             <div id="routeLayer" class="route-layer" aria-hidden="true"></div>
             <footer class="site-record">
               <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">赣ICP备2026002165号-2</a>
@@ -74,6 +75,7 @@
         </section>
 
         <p id="mapHint" class="map-hint">单指拖动 · 双指或滚轮缩放</p>
+        <output id="mapLoadStatus" class="map-load-status" aria-live="polite" hidden></output>
       </section>
 
       <aside id="annotatorPanel" class="annotator-panel" hidden aria-labelledby="annotatorTitle">
@@ -173,8 +175,10 @@
   <script src="js/modal.js?v=20260821-3" defer></script>
   <script src="js/navigation.js?v=20260819-2" defer></script>
   <script src="js/spot-card.js?v=20260821-2" defer></script>
-  <script src="js/map.js?v=20260821-6" defer></script>
-  <script src="js/annotator.js" defer></script>
-  <script src="js/app.js" defer></script>
+  <script src="js/map.js?v=20260821-7" defer></script>
+  <script src="js/vendor/openseadragon/6.1.0/openseadragon.min.js" defer></script>
+  <script src="js/map-tiles.js?v=20260821-6" defer></script>
+  <script src="js/annotator.js?v=20260821-1" defer></script>
+  <script src="js/app.js?v=20260821-1" defer></script>
 </body>
 </html>

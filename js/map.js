@@ -12,6 +12,9 @@
     var viewport = document.getElementById("mapViewport");
     var canvas = document.getElementById("mapCanvas");
     var mapImage = canvas.querySelector(".map-image");
+    if (!mapImage.getAttribute("src") && mapImage.dataset.previewSrc) {
+      mapImage.src = mapImage.dataset.previewSrc;
+    }
     var hotspotLayer = document.getElementById("hotspotLayer");
     var zoomValue = document.getElementById("zoomValue");
     var pointers = new Map();
