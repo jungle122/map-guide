@@ -94,7 +94,7 @@ body.route-active .hotspot-layer {
 .route-status-pill {
   position: absolute;
   z-index: 13;
-  top: max(90px, calc(env(safe-area-inset-top) + 78px));
+  top: max(14px, env(safe-area-inset-top));
   left: 50%;
   transform: translateX(-50%);
   display: inline-flex;

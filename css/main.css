@@ -102,6 +102,31 @@ button:focus-visible, [tabindex]:focus-visible {
 
 .map-stage { width: 100%; height: 100%; }
 
+.site-record {
+  position: absolute;
+  z-index: 8;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  margin: 0;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+.site-record a {
+  color: rgba(36,52,47,0.58);
+  font-size: 64px;
+  line-height: 1.2;
+  text-decoration: none;
+  text-shadow: 0 1px 5px rgba(255,255,255,0.92);
+  touch-action: manipulation;
+}
+.site-record a:hover { color: var(--moss-dark); text-decoration: underline; }
+.site-record a:focus-visible {
+  outline: 3px solid rgba(101,169,191,0.74);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 .annotator-panel {
   position: fixed;
   z-index: 30;

@@ -7,10 +7,10 @@
   <meta name="description" content="粤韵童行黄连古村互动导览地图">
   <title>黄连古村互动导览</title>
   <link rel="icon" href="assets/favicon-blue.jpg?v=20260821-1" type="image/jpeg">
-  <link rel="stylesheet" href="css/main.css?v=20260821-1">
+  <link rel="stylesheet" href="css/main.css?v=20260821-5">
   <link rel="stylesheet" href="css/map.css?v=20260821-7">
-  <link rel="stylesheet" href="css/modal.css?v=20260821-2">
-  <link rel="stylesheet" href="css/routes.css?v=20260821-6">
+  <link rel="stylesheet" href="css/modal.css?v=20260821-3">
+  <link rel="stylesheet" href="css/routes.css?v=20260821-7">
 </head>
 <body class="map-app">
   <div class="app-shell">
@@ -38,6 +38,9 @@
           <div id="mapCanvas" class="map-canvas">
             <img class="map-image" src="assets/map/huanglian-map.jpg" alt="黄连古村手绘导览地图" draggable="false">
             <div id="routeLayer" class="route-layer" aria-hidden="true"></div>
+            <footer class="site-record">
+              <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">赣ICP备2026002165号-2</a>
+            </footer>
           </div>
           <div id="hotspotLayer" class="hotspot-layer"></div>
         </div>
@@ -98,6 +101,7 @@
         <output id="annotationStatus" class="status-message" aria-live="polite">请选择景点后点击地图。</output>
       </aside>
     </main>
+
   </div>
 
   <div id="spotModal" class="modal" hidden>
