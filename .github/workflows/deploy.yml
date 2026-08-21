@@ -1,0 +1,75 @@
+name: 自动部署网站
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: map-guide-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 获取 main 分支代码
+        uses: actions/checkout@v4
+
+      - name: 打包网站文件
+        run: tar -czf map-guide.tar.gz index.html css js assets
+
+      - name: 配置服务器登录密钥
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: 上传部署包
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          scp \
+            -i ~/.ssh/id_ed25519 \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            map-guide.tar.gz \
+            "admin@${DEPLOY_HOST}:/home/admin/map-guide-${GITHUB_SHA}.tar.gz"
+
+      - name: 创建并切换服务器版本
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          ssh \
+            -i ~/.ssh/id_ed25519 \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            "admin@${DEPLOY_HOST}" \
+            "bash -s -- '${GITHUB_SHA}'" <<'REMOTE'
+          set -euo pipefail
+
+          release_id="$1"
+          archive="/home/admin/map-guide-${release_id}.tar.gz"
+          release_dir="/var/www/releases/${release_id}"
+
+          sudo mkdir -p "$release_dir"
+          sudo tar -xzf "$archive" -C "$release_dir"
+          test -f "$release_dir/index.html"
+
+          sudo nginx -t
+          sudo ln -sfn "$release_dir" /var/www/current
+          sudo systemctl reload nginx
+
+          curl -fsS --max-time 15 http://127.0.0.1/ > /dev/null
+          rm -f "$archive"
+          REMOTE
