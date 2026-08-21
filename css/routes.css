@@ -60,6 +60,10 @@ body.route-active .hotspot-layer {
   visibility: hidden;
   opacity: 0;
 }
+body.route-active .hotspot-anchor {
+  visibility: hidden;
+  opacity: 0;
+}
 
 /* 路线入口：固定在标题栏下方 */
 .route-entry-bar {

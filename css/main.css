@@ -23,7 +23,7 @@ body {
   min-width: 320px;
   overflow: hidden;
   color: var(--ink);
-  background: #dbe5dc;
+  background: #fff;
 }
 
 button, audio, video { font: inherit; }
@@ -120,6 +120,8 @@ button:focus-visible, [tabindex]:focus-visible {
   text-shadow: 0 1px 5px rgba(255,255,255,0.92);
   touch-action: manipulation;
 }
+.map-tiles-active .site-record { bottom: 1px; }
+.map-tiles-active .site-record a { font-size: 0.68rem; }
 .site-record a:hover { color: var(--moss-dark); text-decoration: underline; }
 .site-record a:focus-visible {
   outline: 3px solid rgba(101,169,191,0.74);
