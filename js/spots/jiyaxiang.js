@@ -5,6 +5,7 @@
     id: "jiyaxiang",
     mapNumber: 8,
     name: "鸡鸭巷",
+    title: "鸡鸭巷：青砖古巷传童谣",
     song: "齐齐望过去",
     x: 39.03,
     y: 77.29,

@@ -5,6 +5,7 @@
     id: "longshi",
     mapNumber: 23,
     name: "黄连龙虱馆",
+    title: "黄连龙虱馆：端午竞渡听童谣",
     song: "氹氹转",
     x: 37.45,
     y: 11.01,
