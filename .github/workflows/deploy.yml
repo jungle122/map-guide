@@ -21,6 +21,15 @@ jobs:
       - name: 获取 main 分支代码
         uses: actions/checkout@v4
 
+      - name: 校验地图瓦片
+        run: |
+          test -f assets/map/tiles/v2/huanglian.dzi
+          test -f assets/map/tiles/v2/huanglian_files/13/0_0.webp
+          grep -q 'TileSize="512"' assets/map/tiles/v2/huanglian.dzi
+          grep -q 'Format="webp"' assets/map/tiles/v2/huanglian.dzi
+          grep -q 'Width="8091"' assets/map/tiles/v2/huanglian.dzi
+          grep -q 'Height="5669"' assets/map/tiles/v2/huanglian.dzi
+
       - name: 打包网站文件
         run: tar -czf map-guide.tar.gz index.html css js assets
 
@@ -65,11 +74,15 @@ jobs:
           sudo mkdir -p "$release_dir"
           sudo tar -xzf "$archive" -C "$release_dir"
           test -f "$release_dir/index.html"
+          test -f "$release_dir/assets/map/tiles/v2/huanglian.dzi"
+          test -f "$release_dir/assets/map/tiles/v2/huanglian_files/13/0_0.webp"
 
           sudo nginx -t
           sudo ln -sfn "$release_dir" /var/www/current
           sudo systemctl reload nginx
 
           curl -fsS --max-time 15 http://127.0.0.1/ > /dev/null
+          curl -fsS --max-time 15 http://127.0.0.1/assets/map/tiles/v2/huanglian.dzi > /dev/null
+          curl -fsS --max-time 15 http://127.0.0.1/assets/map/tiles/v2/huanglian_files/13/0_0.webp > /dev/null
           rm -f "$archive"
           REMOTE
