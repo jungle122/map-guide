@@ -100,6 +100,7 @@
       marker.setAttribute("aria-label", "查看" + spot.name);
 
       // 添加卡通图标
+      var labelHasIcon = false;
       var iconSrc = SPOT_ICONS[spot.id];
       if (iconSrc) {
         var iconImg = document.createElement("img");
@@ -109,10 +110,12 @@
         iconImg.draggable = false;
         marker.appendChild(iconImg);
         marker.classList.add("has-icon");
+        labelHasIcon = true;
       }
 
       var label = document.createElement("span");
       label.className = "hotspot-label";
+      if (labelHasIcon) label.classList.add("has-icon");
       label.textContent = spot.name;
       label.dataset.spotId = spot.id;
       label.dataset.x = spot.x;

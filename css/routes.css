@@ -1,7 +1,7 @@
 /* 路线层：叠加在地图上，随 mapCanvas 一起缩放拖动 */
 .route-layer {
   position: absolute;
-  z-index: 4;
+  z-index: 7;
   inset: 0;
   pointer-events: none;
 }
@@ -13,21 +13,53 @@
 }
 .route-line {
   fill: none;
-  stroke-width: 0.45;
+  stroke-width: 28;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 1.2 0.7;
+  stroke-dasharray: 74 44;
   opacity: 0.88;
   filter: drop-shadow(0 0 0.25px rgba(255,255,255,0.9));
 }
-.route-stop circle {
+.route-stop-badge {
+  stroke: #fff;
+  stroke-width: 14;
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
 }
-.route-stop text {
+.route-stop-label {
+  fill-opacity: 0.95;
+  stroke-opacity: 0.58;
+  stroke-width: 8;
+  filter: drop-shadow(0 1px 1.6px rgba(28,52,41,0.18));
+}
+.route-stop-leader {
+  stroke-width: 12;
+  stroke-dasharray: 28 18;
+  opacity: 0.82;
+}
+.route-stop-number,
+.route-stop-name {
   font-family: Bahnschrift, Arial, sans-serif;
-  font-variant-numeric: tabular-nums;
   pointer-events: none;
   user-select: none;
+}
+.route-stop-number {
+  fill: #fff;
+  font-size: 56px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.route-stop-name {
+  fill: #24342f;
+  font-family: STKaiti, KaiTi, "Microsoft YaHei", sans-serif;
+  font-size: 72px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+body.route-active .hotspot-layer,
+body.route-active .hotspot-label-layer {
+  visibility: hidden;
+  opacity: 0;
 }
 
 /* 路线入口：固定在标题栏下方 */
@@ -184,7 +216,11 @@ body.route-sheet-open { overflow: hidden; }
   .route-dialog::before { content: ""; display: block; width: 42px; height: 4px; margin: -10px auto 10px; border-radius: 999px; background: rgba(36,52,47,0.22); }
   .route-entry-bar { top: max(72px, calc(env(safe-area-inset-top) + 58px)); left: max(10px, env(safe-area-inset-left)); }
   .route-entry-button { padding: 0.75rem 1.1rem; font-size: 0.88rem; }
-  .route-status-pill { top: max(82px, calc(env(safe-area-inset-top) + 70px)); }
+  .route-status-pill {
+    top: max(130px, calc(env(safe-area-inset-top) + 118px));
+    max-width: calc(100% - 20px);
+    white-space: nowrap;
+  }
 }
 
 @keyframes modal-rise { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }

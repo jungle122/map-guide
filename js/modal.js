@@ -80,12 +80,11 @@
       if (spot.video) {
         var video = document.createElement("video");
         video.controls = true;
-        video.preload = "none";
+        video.preload = "metadata";
         video.playsInline = true;
         video.setAttribute("webkit-playsinline", "true");
-        video.poster = spot.poster || "";
-        video.src = spot.video;
-        body.appendChild(createSection("视频介绍", video));
+        video.src = spot.video + "#t=0.1";
+        body.appendChild(createSection("童谣视频", video));
       }
 
       if (spot.audio) {
@@ -95,7 +94,7 @@
         audio.preload = "none";
         audio.src = spot.audio;
         audioWrap.appendChild(audio);
-        body.appendChild(createSection("音频介绍", audioWrap));
+        body.appendChild(createSection("童谣音频", audioWrap));
       }
 
       content.appendChild(body);

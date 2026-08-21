@@ -4,7 +4,6 @@
   function init() {
     var card = document.getElementById("spotQuickCard");
     var title = document.getElementById("spotCardTitle");
-    var status = document.getElementById("spotCardStatus");
     var detailButton = document.getElementById("viewSpotDetail");
     var navigationButton = document.getElementById("openNavigation");
     var currentSpot = null;
@@ -17,6 +16,7 @@
     function open(spot, trigger) {
       currentSpot = spot;
       currentTrigger = trigger || document.activeElement;
+      title.textContent = spot.name;
       navigationButton.classList.toggle("has-no-coordinate", !hasCoordinates(spot));
       card.hidden = false;
     }
