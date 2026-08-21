@@ -60,6 +60,10 @@ body.route-active .hotspot-layer {
   visibility: hidden;
   opacity: 0;
 }
+body.route-active .hotspot-anchor {
+  visibility: hidden;
+  opacity: 0;
+}
 
 /* 路线入口：固定在标题栏下方 */
 .route-entry-bar {
@@ -216,10 +220,23 @@ body.route-sheet-open { overflow: hidden; }
   .route-entry-bar { top: max(72px, calc(env(safe-area-inset-top) + 58px)); left: max(10px, env(safe-area-inset-left)); }
   .route-entry-button { padding: 0.75rem 1.1rem; font-size: 0.88rem; }
   .route-status-pill {
-    top: max(130px, calc(env(safe-area-inset-top) + 118px));
-    max-width: calc(100% - 20px);
+    top: max(72px, calc(env(safe-area-inset-top) + 58px));
+    right: max(10px, env(safe-area-inset-right));
+    left: auto;
+    max-width: calc(100% - 160px);
+    transform: none;
     white-space: nowrap;
+    animation-name: route-pill-arrive-mobile;
   }
+}
+
+@media (max-width: 380px) {
+  .route-status-duration { display: none; }
+}
+
+@keyframes route-pill-arrive-mobile {
+  from { transform: translateY(-12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes modal-rise { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }

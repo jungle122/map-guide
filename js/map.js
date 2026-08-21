@@ -11,6 +11,10 @@
   function init(spots) {
     var viewport = document.getElementById("mapViewport");
     var canvas = document.getElementById("mapCanvas");
+    var mapImage = canvas.querySelector(".map-image");
+    if (!mapImage.getAttribute("src") && mapImage.dataset.previewSrc) {
+      mapImage.src = mapImage.dataset.previewSrc;
+    }
     var hotspotLayer = document.getElementById("hotspotLayer");
     var zoomValue = document.getElementById("zoomValue");
     var pointers = new Map();
@@ -19,6 +23,27 @@
     var pinchOrigin = null;
     var annotating = false;
     var suppressNextCanvasClick = false;
+    var initialized = false;
+    var fullImageRequested = false;
+    var resizeFrame = 0;
+
+    function requestFullImage() {
+      var fullSrc = mapImage.dataset.fullSrc;
+      if (!fullSrc || fullImageRequested) return;
+      fullImageRequested = true;
+
+      var fullImage = new Image();
+      fullImage.decoding = "async";
+      fullImage.onload = function () {
+        mapImage.src = fullSrc;
+        mapImage.removeAttribute("data-full-src");
+        mapImage.classList.add("is-full-resolution");
+      };
+      fullImage.onerror = function () {
+        fullImageRequested = false;
+      };
+      fullImage.src = fullSrc;
+    }
 
     function positionElement(element) {
       var x = Number(element.dataset.x);
@@ -35,6 +60,7 @@
       canvas.style.transform = "translate(" + state.x + "px," + state.y + "px) scale(" + state.scale + ")";
       zoomValue.value = Math.round((state.scale / state.baseScale) * 100) + "%";
       hotspotLayer.querySelectorAll(".hotspot-anchor").forEach(positionElement);
+      if (zoomRatio >= 1.35) requestFullImage();
     }
 
     function clamp() {
@@ -46,15 +72,33 @@
       state.y = scaledHeight <= viewport.clientHeight ? (viewport.clientHeight - scaledHeight) / 2 : Math.min(0, Math.max(minY, state.y));
     }
 
-    function reset() {
+    function updateScaleBounds() {
       state.minScale = Math.min(viewport.clientWidth / MAP_WIDTH, viewport.clientHeight / MAP_HEIGHT);
       state.baseScale = Math.max(viewport.clientWidth / MAP_WIDTH, viewport.clientHeight / MAP_HEIGHT);
       // Allow users to reach the source image's native pixel density.
       state.maxScale = Math.max(1, state.baseScale * 3);
+    }
+
+    function reset() {
+      updateScaleBounds();
       // Keep the default viewport at 100%; the source pixels remain available on zoom.
       state.scale = Math.min(state.maxScale, state.baseScale * INITIAL_ZOOM);
       state.x = viewport.clientWidth / 2 - MAP_WIDTH * INITIAL_FOCUS.x * state.scale;
       state.y = viewport.clientHeight / 2 - MAP_HEIGHT * INITIAL_FOCUS.y * state.scale;
+      clamp();
+      render();
+      initialized = true;
+    }
+
+    function preserveViewOnResize() {
+      if (!initialized || !viewport.clientWidth || !viewport.clientHeight) return;
+      var mapCenterX = (viewport.clientWidth / 2 - state.x) / state.scale;
+      var mapCenterY = (viewport.clientHeight / 2 - state.y) / state.scale;
+      var zoomRatio = state.scale / state.baseScale;
+      updateScaleBounds();
+      state.scale = Math.max(state.minScale, Math.min(state.maxScale, state.baseScale * zoomRatio));
+      state.x = viewport.clientWidth / 2 - mapCenterX * state.scale;
+      state.y = viewport.clientHeight / 2 - mapCenterY * state.scale;
       clamp();
       render();
     }
@@ -78,6 +122,21 @@
       state.y = localY - mapY * state.scale;
       clamp();
       render();
+    }
+
+    function beginPinch() {
+      var points = Array.from(pointers.values()).slice(0, 2);
+      if (points.length < 2) return;
+      var rect = viewport.getBoundingClientRect();
+      var midpointX = (points[0].x + points[1].x) / 2 - rect.left;
+      var midpointY = (points[0].y + points[1].y) / 2 - rect.top;
+      pinchOrigin = {
+        distance: Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y),
+        scale: state.scale,
+        mapX: (midpointX - state.x) / state.scale,
+        mapY: (midpointY - state.y) / state.scale
+      };
+      dragOrigin = null;
     }
 
     // 卡通图标映射表：景点ID -> 图标路径
@@ -139,14 +198,13 @@
     }, { passive: false });
 
     viewport.addEventListener("pointerdown", function (event) {
-      if (event.target.closest(".hotspot")) return;
+      if (event.target.closest(".hotspot") && pointers.size === 0) return;
       viewport.setPointerCapture(event.pointerId);
       pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
       if (pointers.size === 1) {
         dragOrigin = { x: event.clientX - state.x, y: event.clientY - state.y, startX: event.clientX, startY: event.clientY, moved: false };
       } else if (pointers.size === 2) {
-        var points = Array.from(pointers.values());
-        pinchOrigin = { distance: Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y), scale: state.scale };
+        beginPinch();
       }
       viewport.classList.add("is-dragging");
     });
@@ -155,10 +213,17 @@
       if (!pointers.has(event.pointerId)) return;
       pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
       if (pointers.size === 2 && pinchOrigin) {
-        if (dragOrigin) dragOrigin.moved = true;
         var points = Array.from(pointers.values());
         var distance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
-        zoomAt(pinchOrigin.scale * distance / Math.max(1, pinchOrigin.distance), (points[0].x + points[1].x) / 2, (points[0].y + points[1].y) / 2);
+        var rect = viewport.getBoundingClientRect();
+        var midpointX = (points[0].x + points[1].x) / 2 - rect.left;
+        var midpointY = (points[0].y + points[1].y) / 2 - rect.top;
+        state.scale = Math.max(state.minScale, Math.min(state.maxScale, pinchOrigin.scale * distance / Math.max(1, pinchOrigin.distance)));
+        state.x = midpointX - pinchOrigin.mapX * state.scale;
+        state.y = midpointY - pinchOrigin.mapY * state.scale;
+        suppressNextCanvasClick = true;
+        clamp();
+        render();
       } else if (pointers.size === 1 && dragOrigin) {
         if (Math.hypot(event.clientX - dragOrigin.startX, event.clientY - dragOrigin.startY) > 4) dragOrigin.moved = true;
         if (!annotating || dragOrigin.moved) {
@@ -171,8 +236,21 @@
     });
 
     function releasePointer(event) {
+      if (!pointers.has(event.pointerId)) return;
+      var wasPinching = pointers.size >= 2;
       pointers.delete(event.pointerId);
-      if (!pointers.size) {
+      if (wasPinching && pointers.size === 1) {
+        var remaining = Array.from(pointers.values())[0];
+        dragOrigin = {
+          x: remaining.x - state.x,
+          y: remaining.y - state.y,
+          startX: remaining.x,
+          startY: remaining.y,
+          moved: true
+        };
+        pinchOrigin = null;
+        suppressNextCanvasClick = true;
+      } else if (!pointers.size) {
         suppressNextCanvasClick = Boolean(dragOrigin && dragOrigin.moved);
         viewport.classList.remove("is-dragging");
         dragOrigin = null;
@@ -181,6 +259,7 @@
     }
     viewport.addEventListener("pointerup", releasePointer);
     viewport.addEventListener("pointercancel", releasePointer);
+    viewport.addEventListener("lostpointercapture", releasePointer);
     viewport.addEventListener("click", function (event) {
       if (suppressNextCanvasClick) { suppressNextCanvasClick = false; return; }
       if (!annotating && !event.target.closest(".hotspot")) window.SpotCard.close();
@@ -195,7 +274,10 @@
       zoomAt(state.scale / 1.2, rect.left + rect.width / 2, rect.top + rect.height / 2);
     });
     document.getElementById("resetView").addEventListener("click", reset);
-    window.addEventListener("resize", reset);
+    window.addEventListener("resize", function () {
+      window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = window.requestAnimationFrame(preserveViewOnResize);
+    });
     reset();
 
     return {

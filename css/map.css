@@ -2,9 +2,7 @@
 
 .map-shell {
   overflow: hidden;
-  background:
-    linear-gradient(rgba(111,143,78,0.12), rgba(101,169,191,0.12)),
-    #dfe9df;
+  background: #fff;
 }
 
 .map-viewport {
@@ -15,6 +13,19 @@
 }
 .map-viewport.is-dragging { cursor: grabbing; }
 .map-viewport.is-annotating { cursor: crosshair; }
+
+.map-viewer {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  visibility: hidden;
+  background: #fff url("../assets/map/huanglian-map-placeholder.webp") 45% 45% / cover no-repeat;
+}
+.map-tiles-active .map-viewer { visibility: visible; }
+.map-tiles-ready .map-viewer { background-image: none; }
+.map-tiles-active .map-canvas { pointer-events: none; }
+.map-tiles-active .map-canvas .map-image { display: none; }
+.map-tiles-active .map-canvas .site-record { pointer-events: auto; }
 
 .map-canvas {
   position: absolute;
@@ -311,6 +322,24 @@
 }
 .map-hint { right: max(18px, env(safe-area-inset-right)); bottom: max(16px, calc(env(safe-area-inset-bottom) + 10px)); }
 .placeholder-notice { left: max(18px, env(safe-area-inset-left)); bottom: max(16px, calc(env(safe-area-inset-bottom) + 10px)); }
+
+.map-load-status {
+  position: absolute;
+  z-index: 18;
+  left: 50%;
+  bottom: max(18px, calc(env(safe-area-inset-bottom) + 12px));
+  max-width: calc(100% - 32px);
+  transform: translateX(-50%);
+  padding: 0.55rem 0.85rem;
+  border: 1px solid rgba(255,255,255,0.78);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(245,247,242,0.94);
+  box-shadow: 0 8px 24px rgba(28,52,41,0.18);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+.map-load-status[hidden] { display: none; }
 
 @media (max-width: 720px) {
   .map-toolbar { top: auto; right: max(10px, env(safe-area-inset-right)); bottom: calc(100px + env(safe-area-inset-bottom)); transform: none; }
