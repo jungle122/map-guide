@@ -17,8 +17,6 @@
     function open(spot, trigger) {
       currentSpot = spot;
       currentTrigger = trigger || document.activeElement;
-      title.textContent = spot.name;
-      status.textContent = hasCoordinates(spot) ? "真实位置已接入 · 可选择地图导航" : "童谣《" + spot.song + "》 · 真实导航待补充";
       navigationButton.classList.toggle("has-no-coordinate", !hasCoordinates(spot));
       card.hidden = false;
     }

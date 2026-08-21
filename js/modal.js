@@ -34,17 +34,13 @@
 
       var body = document.createElement("article");
       body.className = "modal-body";
-      var kicker = document.createElement("p");
-      kicker.className = "modal-kicker";
-      kicker.textContent = "童谣《" + spot.song + "》 · 地图编号 " + spot.mapNumber;
       var title = document.createElement("h2");
       title.id = "modalTitle";
       title.textContent = spot.title || spot.name;
       var description = document.createElement("p");
       description.className = "modal-description";
       description.textContent = spot.description;
-
-      body.append(kicker, title);
+      body.appendChild(title);
 
       function appendBaikeButton(label, url, isImage) {
         var baikeButton = document.createElement("a");
@@ -98,10 +94,7 @@
         audio.controls = true;
         audio.preload = "none";
         audio.src = spot.audio;
-        var note = document.createElement("p");
-        note.className = "media-note";
-        note.textContent = "音频不会自动播放；切换媒体时会自动暂停上一段。";
-        audioWrap.append(audio, note);
+        audioWrap.appendChild(audio);
         body.appendChild(createSection("音频介绍", audioWrap));
       }
 

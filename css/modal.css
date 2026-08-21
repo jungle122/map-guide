@@ -131,7 +131,7 @@ body.modal-open { overflow: hidden; }
 .navigation-options strong { font-size: 0.86rem; }
 .navigation-options small { color: var(--ink-soft); font-size: 0.67rem; }
 .navigation-options i { color: var(--ink-soft); font-size: 1.35rem; font-style: normal; }
-.provider-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px 12px 12px 4px; color: white; font-weight: 900; }
+.provider-mark { width: 38px; height: 38px; border-radius: 12px 12px 12px 4px; object-fit: cover; }
 .provider-amap { background: #1688e8; }
 .provider-baidu { background: #3156d9; }
 .provider-tencent { background: #25a56a; }
