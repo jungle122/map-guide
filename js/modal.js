@@ -43,7 +43,31 @@
       var description = document.createElement("p");
       description.className = "modal-description";
       description.textContent = spot.description;
-      body.append(kicker, title, description);
+
+      body.append(kicker, title);
+
+      function appendBaikeButton(label, url, isImage) {
+        var baikeButton = document.createElement("a");
+        baikeButton.className = "baike-button" + (isImage ? " is-image" : "");
+        baikeButton.href = url;
+        baikeButton.target = "_blank";
+        baikeButton.rel = "noopener noreferrer";
+        baikeButton.textContent = label;
+        body.appendChild(baikeButton);
+      }
+
+      if (spot.baikeLinks && spot.baikeLinks.length) {
+        var baikeWrap = document.createElement("div");
+        baikeWrap.className = "baike-buttons";
+        spot.baikeLinks.forEach(function (link) {
+          appendBaikeButton(link.name, link.url, false);
+        });
+        body.appendChild(baikeWrap);
+      } else if (spot.baikeUrl) {
+        appendBaikeButton(spot.name, spot.baikeUrl, !!spot.baikeIsImage);
+      }
+
+      body.appendChild(description);
 
       if (spot.images && spot.images.length) {
         var gallery = document.createElement("div");
