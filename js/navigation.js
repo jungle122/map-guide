@@ -47,23 +47,59 @@
     return successful ? Promise.resolve() : Promise.reject(new Error("copy failed"));
   }
 
+  function isMobileUA() {
+    return /Android|iPhone|iPad|iPod|Mobile|HarmonyOS/i.test(navigator.userAgent);
+  }
+
   function buildNavigationUrls(spot) {
     var lng = spot.longitude;
     var lat = spot.latitude;
     var name = spot.navName || spot.name;
     var wgs = gcj02ToWgs84(lng, lat);
+    var baidu;
+    if (isMobileUA()) {
+      // 手机端：打开百度地图网页路线规划页（终点为景点 GCJ-02 坐标，百度自动换算 BD-09）
+      baidu = "https://api.map.baidu.com/direction?destination=" + lat + "," + lng +
+        "&coord_type=gcj02&mode=walking&region=" + encodeURIComponent("佛山市") +
+        "&output=html&src=" + SRC_NAME;
+    } else {
+      // 电脑端：direction 接口缺起点会跳首页，改用 marker 页展示景点位置（可一键"到这去"）
+      baidu = "https://api.map.baidu.com/marker?location=" + lat + "," + lng +
+        "&title=" + encodeURIComponent(name) + "&content=" + encodeURIComponent(name) +
+        "&coord_type=gcj02&output=html&src=" + SRC_NAME;
+    }
     return {
       amap: "https://uri.amap.com/navigation?to=" + lng + "," + lat + "," + encodeURIComponent(name) +
         "&mode=walk&coordinate=gaode&callnative=0&src=" + SRC_NAME,
-      baidu: "https://api.map.baidu.com/direction?origin=" + encodeURIComponent("我的位置") +
-        "&destination=" + encodeURIComponent("name:" + name + "|latlng:" + lat + "," + lng) +
-        "&coord_type=gcj02&mode=walking&region=" + encodeURIComponent("佛山市") +
-        "&output=html&src=webapp.huanglian.map",
-      tencent: "https://apis.map.qq.com/uri/v1/routeplan?type=walk&to=" + encodeURIComponent(name) +
-        "&tocoord=" + lat + "," + lng + "&referer=" + SRC_NAME,
+      baidu: baidu,
+      tencent: "https://map.qq.com/?type=route&from=current&to=" + lat + "," + lng + "," +
+        encodeURIComponent(name),
       apple: "https://maps.apple.com/?daddr=" + wgs.lat + "," + wgs.lng +
         "&q=" + encodeURIComponent(name) + "&dirflg=w"
     };
+  }
+
+  function openExternal(url) {
+    var opened = null;
+    try {
+      opened = window.open(url, "_blank", "noopener");
+    } catch (error) {
+      opened = null;
+    }
+    if (!opened) {
+      try {
+        var link = document.createElement("a");
+        link.href = url;
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(function () { link.remove(); }, 0);
+      } catch (error) {
+        window.location.href = url;
+      }
+    }
   }
 
   function init() {
@@ -116,8 +152,8 @@
         var provider = button.getAttribute("data-map-provider");
         var providerLabel = button.querySelector("strong").textContent;
         var url = buildNavigationUrls(currentSpot)[provider];
+        openExternal(url);
         status.value = "正在打开" + providerLabel + "网页路线；若没有跳转，可复制地点信息后手动搜索。";
-        window.location.assign(url);
       });
     });
 
