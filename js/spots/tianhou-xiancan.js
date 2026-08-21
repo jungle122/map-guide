@@ -20,7 +20,6 @@
     images: ["assets/images/tianhou-xiancan/01.webp", "assets/images/tianhou-xiancan/02.webp", "assets/images/tianhou-xiancan/03.webp"],
     audio: "assets/audio/dangdangzhuan.mp3",
     video: "assets/video/dangdangzhuan.mp4",
-    poster: "assets/images/tianhou-xiancan/01.webp",
     baikeLinks: [
       { name: "天后宫", url: "http://www.tcmap.com.cn/landscape/90/zhongyongtianhougong.html" },
       { name: "先蠺庙", url: "https://www.fsonline.com.cn/FS_PLUS/1061345.html" }

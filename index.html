@@ -6,19 +6,19 @@
   <meta name="theme-color" content="#f5f7f2">
   <meta name="description" content="粤韵童行黄连古村互动导览地图">
   <title>黄连古村互动导览</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/map.css?v=20260818-2">
+  <link rel="icon" href="assets/favicon-blue.jpg?v=20260821-1" type="image/jpeg">
+  <link rel="stylesheet" href="css/main.css?v=20260821-1">
+  <link rel="stylesheet" href="css/map.css?v=20260821-7">
   <link rel="stylesheet" href="css/modal.css?v=20260821-2">
-  <link rel="stylesheet" href="css/routes.css?v=20260821-3">
+  <link rel="stylesheet" href="css/routes.css?v=20260821-6">
 </head>
 <body class="map-app">
   <div class="app-shell">
     <header class="topbar">
       <div class="brand-lockup">
-        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <img class="brand-mark" src="assets/favicon-blue.jpg?v=20260821-1" alt="">
         <div>
-          <p>粤韵童行 · 互动导览</p>
+          <p>粤韵童行·童谣互动地图</p>
           <h1>黄连古村</h1>
         </div>
       </div>
@@ -40,7 +40,6 @@
             <div id="routeLayer" class="route-layer" aria-hidden="true"></div>
           </div>
           <div id="hotspotLayer" class="hotspot-layer"></div>
-          <div id="hotspotLabelLayer" class="hotspot-label-layer" aria-hidden="true"></div>
         </div>
 
         <div class="map-toolbar" aria-label="地图控制">
@@ -72,7 +71,6 @@
         </section>
 
         <p id="mapHint" class="map-hint">单指拖动 · 双指或滚轮缩放</p>
-        <p class="placeholder-notice">首批 4 个童谣景点 · 内容持续完善中</p>
       </section>
 
       <aside id="annotatorPanel" class="annotator-panel" hidden aria-labelledby="annotatorTitle">
@@ -142,37 +140,36 @@
         </div>
         <button id="closeRouteSheet" type="button" aria-label="关闭线路选择">×</button>
       </div>
-      <p class="route-hint">路线以手绘地图估算坐标绘制，可在 ?debug=1 模式下微调点位。</p>
       <div class="route-cards">
         <button class="route-card" type="button" data-route-id="halfDay">
           <span class="route-card-badge" style="background:#b94e3d">半日游</span>
           <strong>古村精华线</strong>
           <small>约 3 小时 · 7 站</small>
-          <span class="route-card-desc">从村史馆出发，经游客服务中心、顺德厨师文化展示馆、雪圃学校、澳心何氏先祠、画家艺术村，最后到达石狮脚。</span>
+          <span class="route-card-desc">从黄连村史馆出发，经游客服务中心、顺德厨师文化展示馆、雪圃学校、澳心何氏先祠、画家艺术村，最后到达石狮脚。</span>
         </button>
         <button class="route-card" type="button" data-route-id="fullDay">
           <span class="route-card-badge" style="background:#3f633c">一日游</span>
           <strong>古村深度环线</strong>
           <small>约 6 小时 · 13 站</small>
-          <span class="route-card-desc">覆盖半日游精华，并延伸至仓沮圣庙、石龟祠公园、古庙公园、黄连龙虱馆、滨水公园、南大将军古庙等核心景点。</span>
+          <span class="route-card-desc">从黄连村史馆出发，依次游览游客服务中心、顺德厨师文化展示馆、雪圃学校、仓沮圣庙、石龟祠公园、古庙公园、黄连龙虱馆、滨水公园、南大将军古庙、澳心何氏先祠、画家艺术村和石狮脚。</span>
         </button>
       </div>
     </section>
   </div>
 
   <script src="js/data.js" defer></script>
-  <script src="js/spots/shishijiao.js?v=20260821-2" defer></script>
-  <script src="js/spots/tianhou-xiancan.js?v=20260821-2" defer></script>
-  <script src="js/spots/longshi.js?v=20260821-2" defer></script>
-  <script src="js/spots/jiyaxiang.js?v=20260821-2" defer></script>
-  <script src="js/routes.js?v=20260821-5" defer></script>
-  <script src="js/route-layer.js?v=20260821-2" defer></script>
+  <script src="js/spots/shishijiao.js?v=20260821-3" defer></script>
+  <script src="js/spots/tianhou-xiancan.js?v=20260821-3" defer></script>
+  <script src="js/spots/longshi.js?v=20260821-3" defer></script>
+  <script src="js/spots/jiyaxiang.js?v=20260821-3" defer></script>
+  <script src="js/routes.js?v=20260821-6" defer></script>
+  <script src="js/route-layer.js?v=20260821-5" defer></script>
   <script src="js/route-entry.js?v=20260821-2" defer></script>
   <script src="js/media.js" defer></script>
-  <script src="js/modal.js?v=20260821-2" defer></script>
+  <script src="js/modal.js?v=20260821-3" defer></script>
   <script src="js/navigation.js?v=20260819-2" defer></script>
-  <script src="js/spot-card.js" defer></script>
-  <script src="js/map.js?v=20260818-2" defer></script>
+  <script src="js/spot-card.js?v=20260821-2" defer></script>
+  <script src="js/map.js?v=20260821-5" defer></script>
   <script src="js/annotator.js" defer></script>
   <script src="js/app.js" defer></script>
 </body>
