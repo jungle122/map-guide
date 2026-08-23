@@ -55,12 +55,12 @@ http://127.0.0.1:5500/?debug=1
 
 ## 地图瓦片维护
 
-网页默认读取 `assets/map/tiles/v2/huanglian.dzi`，OpenSeadragon 已作为静态文件保存在 `js/vendor/`，不需要 npm 或外部 CDN。
+网页默认读取 `assets/map/tiles/v3/huanglian.dzi`，OpenSeadragon 已作为静态文件保存在 `js/vendor/`，不需要 npm 或外部 CDN。
 
 更换正式地图后，在安装了 libvips 的电脑执行：
 
 ```powershell
-.\tools\generate-map-tiles.ps1 -Version v3 -VipsPath "C:\path\to\vips.exe"
+.\tools\generate-map-tiles.ps1 -Version v4 -VipsPath "C:\path\to\vips.exe"
 ```
 
 生成脚本会验证 8091 × 5669 原图、DZI 描述、最高层瓦片数量和输出目录。版本目录不可覆盖；生成新版本后，还需要更新 `js/map-tiles.js` 中的 `TILE_SOURCE`。使用 `?map=legacy` 可以强制进入普通单图模式，便于新旧引擎对比。
