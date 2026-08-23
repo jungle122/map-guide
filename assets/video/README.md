@@ -1,6 +1,6 @@
 # 测试视频
 
-首批正式童谣视频：`yueguangguang.mp4`、`dangdangzhuan.mp4`、`qiqiwangguoqu.mp4`。文件由团队素材目录复制并规范化命名，使用景点首图作为封面。
+首批正式童谣视频：`yueguangguang.mp4`、`dangdangzhuan.mp4`、`qiqiwangguoqu.mp4`、`nazha-dangdangzhuan.mp4`（龙虱馆专用，整合《哪吒》+《氹氹转》两段素材）。文件由团队素材目录复制并规范化命名，使用景点首图作为封面。
 
 来源：<https://developer.mozilla.org/shared-assets/videos/flower.mp4>
 
