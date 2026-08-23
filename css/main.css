@@ -137,6 +137,8 @@ button:focus-visible, [tabindex]:focus-visible {
   left: auto;
   bottom: auto;
   transform: none;
+  scale: var(--hotspot-group-scale, 1);
+  transform-origin: 50% 100%;
 }
 .map-tiles-active .site-record a { font-size: 0.68rem; }
 .site-record a:hover { color: var(--moss-dark); text-decoration: underline; }
