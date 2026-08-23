@@ -54,8 +54,7 @@
 
     function render() {
       var zoomRatio = state.scale / state.baseScale;
-      var hotspotGroupScale = Math.max(0.55, Math.min(1, state.scale * 5.1));
-      viewport.style.setProperty("--hotspot-group-scale", hotspotGroupScale.toFixed(3));
+      viewport.style.setProperty("--hotspot-group-scale", zoomRatio.toFixed(3));
       viewport.dataset.zoomRatio = zoomRatio.toFixed(2);
       canvas.style.transform = "translate(" + state.x + "px," + state.y + "px) scale(" + state.scale + ")";
       zoomValue.value = Math.round(zoomRatio * 100) + "%";

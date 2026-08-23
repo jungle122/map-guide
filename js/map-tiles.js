@@ -178,9 +178,7 @@
       if (!tiledImage || !viewer.viewport) return;
       var currentZoom = viewer.viewport.getZoom(true);
       var zoomRatio = currentZoom / homeZoom;
-      var imageZoom = tiledImage.viewportToImageZoom(currentZoom);
-      var hotspotScale = Math.max(0.55, Math.min(1, imageZoom * 5.1));
-      viewerElement.style.setProperty("--hotspot-group-scale", hotspotScale.toFixed(3));
+      viewerElement.style.setProperty("--hotspot-group-scale", zoomRatio.toFixed(3));
       host.dataset.zoomRatio = zoomRatio.toFixed(2);
       zoomValue.value = Math.round(zoomRatio * 100) + "%";
     }
