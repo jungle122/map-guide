@@ -115,10 +115,7 @@
       downPoint = null;
     });
 
-    var hotspotElements = mapApi.getHotspotElements
-      ? mapApi.getHotspotElements()
-      : document.getElementById("hotspotLayer").querySelectorAll(".hotspot-anchor");
-    hotspotElements.forEach(function (marker) {
+    document.getElementById("hotspotLayer").querySelectorAll(".hotspot-anchor").forEach(function (marker) {
       var drag = null;
       marker.addEventListener("pointerdown", function (event) {
         if (!mapApi.isAnnotating() || !event.target.closest(".hotspot")) return;

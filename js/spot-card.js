@@ -4,6 +4,7 @@
   function init() {
     var card = document.getElementById("spotQuickCard");
     var title = document.getElementById("spotCardTitle");
+    var icon = document.getElementById("spotCardIcon");
     var detailButton = document.getElementById("viewSpotDetail");
     var navigationButton = document.getElementById("openNavigation");
     var currentSpot = null;
@@ -16,8 +17,19 @@
     function open(spot, trigger) {
       currentSpot = spot;
       currentTrigger = trigger || document.activeElement;
-      title.textContent = spot.name;
       navigationButton.classList.toggle("has-no-coordinate", !hasCoordinates(spot));
+
+      // 设置卡通图标：从 SPOT_ICONS 映射表取对应图标
+      if (window.SPOT_ICONS && window.SPOT_ICONS[spot.id]) {
+        icon.src = window.SPOT_ICONS[spot.id];
+        icon.hidden = false;
+      } else {
+        icon.hidden = true;
+      }
+
+      // 显示地点名称
+      title.textContent = spot.name;
+
       card.hidden = false;
     }
 

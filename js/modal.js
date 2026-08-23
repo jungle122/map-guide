@@ -36,34 +36,11 @@
       body.className = "modal-body";
       var title = document.createElement("h2");
       title.id = "modalTitle";
-      title.textContent = spot.title || spot.name;
+      title.textContent = spot.name;
       var description = document.createElement("p");
       description.className = "modal-description";
       description.textContent = spot.description;
-      body.appendChild(title);
-
-      function appendBaikeButton(label, url, isImage) {
-        var baikeButton = document.createElement("a");
-        baikeButton.className = "baike-button" + (isImage ? " is-image" : "");
-        baikeButton.href = url;
-        baikeButton.target = "_blank";
-        baikeButton.rel = "noopener noreferrer";
-        baikeButton.textContent = label;
-        body.appendChild(baikeButton);
-      }
-
-      if (spot.baikeLinks && spot.baikeLinks.length) {
-        var baikeWrap = document.createElement("div");
-        baikeWrap.className = "baike-buttons";
-        spot.baikeLinks.forEach(function (link) {
-          appendBaikeButton(link.name, link.url, false);
-        });
-        body.appendChild(baikeWrap);
-      } else if (spot.baikeUrl) {
-        appendBaikeButton(spot.name, spot.baikeUrl, !!spot.baikeIsImage);
-      }
-
-      body.appendChild(description);
+      body.append(title, description);
 
       if (spot.images && spot.images.length) {
         var gallery = document.createElement("div");
@@ -77,16 +54,6 @@
         body.appendChild(createSection("图片", gallery, "image-gallery"));
       }
 
-      if (spot.video) {
-        var video = document.createElement("video");
-        video.controls = true;
-        video.preload = "metadata";
-        video.playsInline = true;
-        video.setAttribute("webkit-playsinline", "true");
-        video.src = spot.video + "#t=0.1";
-        body.appendChild(createSection("童谣视频", video));
-      }
-
       if (spot.audio) {
         var audioWrap = document.createElement("div");
         var audio = document.createElement("audio");
@@ -94,7 +61,18 @@
         audio.preload = "none";
         audio.src = spot.audio;
         audioWrap.appendChild(audio);
-        body.appendChild(createSection("童谣音频", audioWrap));
+        body.appendChild(createSection("音频介绍", audioWrap));
+      }
+
+      if (spot.video) {
+        var video = document.createElement("video");
+        video.controls = true;
+        video.preload = "none";
+        video.playsInline = true;
+        video.setAttribute("webkit-playsinline", "true");
+        video.poster = spot.poster || "";
+        video.src = spot.video;
+        body.appendChild(createSection("视频介绍", video));
       }
 
       content.appendChild(body);

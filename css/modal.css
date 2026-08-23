@@ -41,36 +41,6 @@
 .modal-kicker { margin: 0 0 0.4rem; color: var(--brick); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; }
 .modal-body h2 { margin: 0 0 0.8rem; padding-right: 48px; font-family: STKaiti, KaiTi, "Microsoft YaHei", sans-serif; font-size: clamp(1.55rem, 5vw, 2.2rem); }
 .modal-description { color: var(--ink-soft); line-height: 1.78; white-space: pre-line; }
-.baike-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin: -0.3rem 0 0.9rem; }
-.baike-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0.55rem 1rem;
-  border: 1px solid rgba(63,99,60,0.32);
-  border-radius: 999px;
-  color: var(--moss-dark);
-  background: transparent;
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 180ms ease, border-color 180ms ease;
-}
-.baike-button:hover { border-color: rgba(63,99,60,0.6); background: rgba(63,99,60,0.06); }
-.baike-button::before {
-  content: "百";
-  display: grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  color: white;
-  background: #3156d9;
-  font-size: 0.62rem;
-  font-weight: 900;
-}
-.baike-button.is-image::before { content: "图"; background: #25a56a; }
 .media-section { margin-top: 1.4rem; }
 .media-section h3 { margin-bottom: 0.65rem; font-size: 0.95rem; }
 .image-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
@@ -107,7 +77,7 @@ body.modal-open { overflow: hidden; }
 .navigation-heading p { margin: 0 0 3px; color: var(--brick); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; }
 .navigation-heading h2 { margin: 0; font-family: STKaiti, KaiTi, "Microsoft YaHei", sans-serif; font-size: 1.45rem; }
 .navigation-heading > button { width: 38px; height: 38px; padding: 0; border: 0; border-radius: 50%; color: white; background: var(--moss-dark); font-size: 1.45rem; cursor: pointer; }
-.navigation-hint { display: none; }
+.navigation-hint { margin: 12px 0 15px; color: var(--ink-soft); font-size: 0.8rem; line-height: 1.55; }
 .navigation-options { display: grid; gap: 8px; }
 .navigation-options > button {
   display: grid;
