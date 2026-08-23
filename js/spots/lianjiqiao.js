@@ -19,6 +19,8 @@
     images: ["assets/images/lianjiqiao/01.jpg", "assets/images/lianjiqiao/02.jpg"],
     audio: "assets/audio/luoyuda.mp3",
     video: "assets/video/luoyuda.mp4",
-    poster: "assets/images/lianjiqiao/01.jpg"
+    baikeUrl: "assets/images/lianjiqiao/baike-intro.png",
+    baikeIntro: "连济桥位于黄连村深滘石桥头，具有清代建筑风格，桥体呈西南—东北走向，连接深滘罗地大街与接龙直街。桥长24.5米、宽1.5米，为梁式石板桥。",
+    baikeIsImage: true
   });
 })();

@@ -13,8 +13,11 @@
     "longshi": "assets/icons/longshi.jpg",
     "jiyaxiang": "assets/icons/jiyaxiang.jpg",
     "shishijiao": "assets/icons/shishijiao.jpg",
-    "tianhou-xiancan": "assets/icons/tianhou-xiancan.jpg"
+    "tianhou-xiancan": "assets/icons/tianhou-xiancan.jpg",
+    "fanhou-geci": "assets/icons/fanhou-geci.jpg",
+    "lianjiqiao": "assets/icons/lianjiqiao.jpg"
   };
+  window.SPOT_ICONS = SPOT_ICONS;
 
   function init(spots) {
     var host = document.getElementById("mapViewport");
@@ -32,6 +35,7 @@
     var resizeSnapshot = null;
     var resizeTimer = 0;
     var lastHotspotInteraction = 0;
+    var annotatorClickHandlers = [];
 
     document.documentElement.classList.add("map-tiles-active");
     viewerElement.setAttribute("aria-hidden", "false");
@@ -47,8 +51,12 @@
     }
 
     function createHotspot(spot) {
+      var existing = anchors.find(function (item) { return item.dataset.spotId === spot.id; });
+      if (existing) return existing;
       var anchor = document.createElement("div");
       anchor.className = "hotspot-anchor";
+      if (spot.isTemporary) anchor.classList.add("is-temporary");
+      if (spot.isSecondary) anchor.classList.add("is-secondary");
       anchor.dataset.spotId = spot.id;
       anchor.dataset.x = spot.x;
       anchor.dataset.y = spot.y;
@@ -80,7 +88,8 @@
           anchor.dataset.wasDragged = "false";
           return;
         }
-        window.SpotCard.open(spot, event.currentTarget);
+        if (spot.isSecondary) window.SpotModal.open(spot, event.currentTarget);
+        else window.SpotCard.open(spot, event.currentTarget);
       });
       marker.addEventListener("pointerdown", function (event) {
         lastHotspotInteraction = window.performance.now();
@@ -91,6 +100,24 @@
       anchor.appendChild(label);
       hotspotLayer.appendChild(anchor);
       anchors.push(anchor);
+      if (tiledImage) {
+        viewer.addOverlay({
+          element: anchor,
+          location: imagePoint(anchor.dataset.x, anchor.dataset.y),
+          placement: window.OpenSeadragon.Placement.TOP_LEFT,
+          checkResize: false
+        });
+      }
+      return anchor;
+    }
+
+    function removeHotspot(spotId) {
+      var index = anchors.findIndex(function (item) { return item.dataset.spotId === spotId; });
+      if (index < 0) return;
+      var anchor = anchors[index];
+      if (tiledImage) viewer.removeOverlay(anchor);
+      anchors.splice(index, 1);
+      anchor.remove();
     }
 
     spots.forEach(createHotspot);
@@ -137,13 +164,21 @@
       );
     }
 
+    function webPointToPercent(webPoint) {
+      if (!tiledImage) return { x: 50, y: 50 };
+      var viewportPoint = viewer.viewport.pointFromPixel(webPoint, true);
+      var point = tiledImage.viewportToImageCoordinates(viewportPoint);
+      return {
+        x: Math.max(0, Math.min(100, point.x / MAP_WIDTH * 100)),
+        y: Math.max(0, Math.min(100, point.y / MAP_HEIGHT * 100))
+      };
+    }
+
     function updateUi() {
       if (!tiledImage || !viewer.viewport) return;
       var currentZoom = viewer.viewport.getZoom(true);
       var zoomRatio = currentZoom / homeZoom;
-      var imageZoom = tiledImage.viewportToImageZoom(currentZoom);
-      var hotspotScale = Math.max(0.55, Math.min(1, imageZoom * 5.1));
-      viewerElement.style.setProperty("--hotspot-group-scale", hotspotScale.toFixed(3));
+      viewerElement.style.setProperty("--hotspot-group-scale", zoomRatio.toFixed(3));
       host.dataset.zoomRatio = zoomRatio.toFixed(2);
       zoomValue.value = Math.round(zoomRatio * 100) + "%";
     }
@@ -218,6 +253,11 @@
     viewer.addHandler("animation-finish", updateUi);
     viewer.addHandler("canvas-click", function (event) {
       var justUsedHotspot = window.performance.now() - lastHotspotInteraction < 500;
+      if (event.quick && annotating && !justUsedHotspot && !event.originalEvent.target.closest(".hotspot")) {
+        var annotationPoint = webPointToPercent(event.position);
+        annotatorClickHandlers.forEach(function (handler) { handler(annotationPoint); });
+        return;
+      }
       if (event.quick && !annotating && !justUsedHotspot && !event.originalEvent.target.closest(".hotspot")) {
         window.SpotCard.close();
       }
@@ -267,12 +307,7 @@
         if (!tiledImage) return { x: 50, y: 50 };
         var rect = viewerElement.getBoundingClientRect();
         var webPoint = new window.OpenSeadragon.Point(clientX - rect.left, clientY - rect.top);
-        var viewportPoint = viewer.viewport.pointFromPixel(webPoint, true);
-        var point = tiledImage.viewportToImageCoordinates(viewportPoint);
-        return {
-          x: Math.max(0, Math.min(100, point.x / MAP_WIDTH * 100)),
-          y: Math.max(0, Math.min(100, point.y / MAP_HEIGHT * 100))
-        };
+        return webPointToPercent(webPoint);
       },
       setAnnotating: function (enabled) {
         annotating = enabled;
@@ -280,6 +315,9 @@
       },
       isAnnotating: function () { return annotating; },
       getHotspotElements: function () { return anchors; },
+      onAnnotatorMapClick: function (handler) { annotatorClickHandlers.push(handler); },
+      addHotspot: createHotspot,
+      removeHotspot: removeHotspot,
       setHotspotPosition: function (spotId, point) {
         var anchor = anchors.find(function (item) { return item.dataset.spotId === spotId; });
         if (!anchor) return;
