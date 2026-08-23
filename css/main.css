@@ -7,6 +7,7 @@
   --water: #65a9bf;
   --water-deep: #377f96;
   --brick: #b94e3d;
+  --map-frame: #769460;
   --mist: #f5f7f2;
   --paper: rgba(250, 252, 248, 0.92);
   --line: rgba(36, 52, 47, 0.15);
@@ -23,7 +24,7 @@ body {
   min-width: 320px;
   overflow: hidden;
   color: var(--ink);
-  background: #fff;
+  background: var(--map-frame);
 }
 
 button, audio, video { font: inherit; }
