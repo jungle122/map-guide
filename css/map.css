@@ -2,7 +2,7 @@
 
 .map-shell {
   overflow: hidden;
-  background: #fff;
+  background: var(--map-frame);
 }
 
 .map-viewport {
@@ -20,7 +20,7 @@
   z-index: 1;
   inset: 0;
   visibility: hidden;
-  background: #fff url("../assets/map/huanglian-map-placeholder.webp") 45% 45% / cover no-repeat;
+  background: var(--map-frame) url("../assets/map/huanglian-map-placeholder.webp?v=20260824-1") 45% 45% / cover no-repeat;
 }
 .map-tiles-active .map-viewer { visibility: visible; }
 .map-tiles-ready .map-viewer { background-image: none; }
@@ -170,41 +170,34 @@
 .hotspot-anchor.is-secondary .hotspot:hover,
 .hotspot-anchor.is-secondary .hotspot:focus-visible { background: var(--moss-dark); opacity: 1; }
 .hotspot-anchor.is-secondary .hotspot-label {
+  --label-bg: rgb(250,252,248);
+  --label-border: rgba(63,99,60,0.2);
   transform: translate(20px, calc(-50% - 10px));
   transform-origin: 0 50%;
   padding: 4px 7px;
-  border-color: rgba(63,99,60,0.2);
+  border-color: var(--label-border);
   color: rgb(36,52,47);
-  background: rgb(250,252,248);
+  background: var(--label-bg);
   box-shadow: 0 3px 9px rgba(28,52,41,0.1);
   font-size: 11px;
   font-weight: 600;
   opacity: 1;
 }
-.hotspot-anchor.is-secondary .hotspot-label::after {
-  top: 50%;
-  right: auto;
-  bottom: auto;
-  left: -5px;
-  border-top: 1px solid rgba(63,99,60,0.34);
-  border-right: 0;
-  border-bottom: 0;
-  border-left: 1px solid rgba(63,99,60,0.34);
-  transform: translateY(-50%) rotate(-45deg);
-}
 .hotspot-anchor.is-secondary:hover .hotspot-label,
 .hotspot-anchor.is-secondary:focus-within .hotspot-label { opacity: 1; }
 
 .hotspot-label {
+  --label-bg: rgba(250,252,248,0.94);
+  --label-border: rgba(63,99,60,0.34);
   position: absolute;
   z-index: 1;
   min-width: max-content;
   transform: translate(-50%, calc(-100% - 47px));
   padding: 5px 9px;
-  border: 1px solid rgba(63,99,60,0.34);
+  border: 1px solid var(--label-border);
   border-radius: 8px 8px 8px 2px;
   color: var(--ink);
-  background: rgba(250,252,248,0.94);
+  background: var(--label-bg);
   box-shadow: 0 5px 15px rgba(28,52,41,0.18);
   font-family: STKaiti, KaiTi, "Microsoft YaHei", sans-serif;
   font-size: 15px;
@@ -215,38 +208,61 @@
   pointer-events: none;
   transition: opacity 180ms ease, border-color 180ms ease;
 }
+.hotspot-label::before,
 .hotspot-label::after {
   content: "";
   position: absolute;
   left: 50%;
+  transform: translateX(-50%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.hotspot-label::before {
+  bottom: -7px;
+  width: 12px;
+  height: 7px;
+  background: var(--label-border);
+}
+.hotspot-label::after {
   bottom: -5px;
-  width: 8px;
-  height: 8px;
-  transform: translateX(-50%) rotate(45deg);
-  border-right: 1px solid rgba(63,99,60,0.34);
-  border-bottom: 1px solid rgba(63,99,60,0.34);
-  background: rgba(250,252,248,0.94);
+  width: 10px;
+  height: 6px;
+  background: var(--label-bg);
 }
 .hotspot-label.is-below { transform: translate(-50%, 27px); }
+.hotspot-label.is-below::before,
+.hotspot-label.is-below::after {
+  top: -7px;
+  bottom: auto;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
 .hotspot-label.is-below::after {
   top: -5px;
-  bottom: auto;
-  transform: translateX(-50%) rotate(225deg);
 }
 .hotspot-label.has-icon {
   transform: translate(40px, calc(-50% - 20px));
   transform-origin: 0 50%;
 }
-.hotspot-label.has-icon::after {
+.hotspot-label.has-icon::before,
+.hotspot-label.has-icon::after,
+.hotspot-anchor.is-secondary .hotspot-label::before,
+.hotspot-anchor.is-secondary .hotspot-label::after {
   top: 50%;
   right: auto;
   bottom: auto;
+  transform: translateY(-50%);
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+}
+.hotspot-label.has-icon::before,
+.hotspot-anchor.is-secondary .hotspot-label::before {
+  left: -7px;
+  width: 7px;
+  height: 12px;
+}
+.hotspot-label.has-icon::after,
+.hotspot-anchor.is-secondary .hotspot-label::after {
   left: -5px;
-  border-top: 1px solid rgba(63,99,60,0.34);
-  border-right: 0;
-  border-bottom: 0;
-  border-left: 1px solid rgba(63,99,60,0.34);
-  transform: translateY(-50%) rotate(-45deg);
+  width: 6px;
+  height: 10px;
 }
 
 .map-toolbar {
@@ -381,17 +397,18 @@
     left: max(10px, env(safe-area-inset-left));
     right: max(10px, env(safe-area-inset-right));
     bottom: calc(10px + env(safe-area-inset-bottom));
-    grid-template-columns: 30px minmax(0, 1fr) auto;
+    grid-template-columns: 42px minmax(0, 1fr);
     width: auto;
     transform: none;
-    gap: 9px;
+    column-gap: 12px;
+    row-gap: 9px;
     padding: 10px;
     border-radius: 18px;
     animation-name: spot-card-arrive-mobile;
   }
   .spot-card-copy h2 { font-size: 1rem; }
   .spot-card-icon { width: 42px; height: 42px; }
-  .spot-card-actions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1.25fr; width: 100%; }
+  .spot-card-actions { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
   .spot-card-actions button { min-height: 40px; padding: 0.58rem 0.7rem; }
   .spot-card-close { position: absolute; right: 8px; top: 8px; width: 30px; height: 30px; }
   .spot-card-copy { padding-right: 32px; }

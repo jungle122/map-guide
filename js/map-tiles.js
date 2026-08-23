@@ -8,7 +8,7 @@
   var MAP_WIDTH = 8091;
   var MAP_HEIGHT = 5669;
   var INITIAL_FOCUS = { x: 0.45, y: 0.45 };
-  var TILE_SOURCE = "assets/map/tiles/v2/huanglian.dzi";
+  var TILE_SOURCE = "assets/map/tiles/v3/huanglian.dzi";
   var SPOT_ICONS = {
     "longshi": "assets/icons/longshi.jpg",
     "jiyaxiang": "assets/icons/jiyaxiang.jpg",
