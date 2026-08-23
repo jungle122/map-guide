@@ -13,8 +13,11 @@
     "longshi": "assets/icons/longshi.jpg",
     "jiyaxiang": "assets/icons/jiyaxiang.jpg",
     "shishijiao": "assets/icons/shishijiao.jpg",
-    "tianhou-xiancan": "assets/icons/tianhou-xiancan.jpg"
+    "tianhou-xiancan": "assets/icons/tianhou-xiancan.jpg",
+    "fanhou-geci": "assets/icons/fanhou-geci.jpg",
+    "lianjiqiao": "assets/icons/lianjiqiao.jpg"
   };
+  window.SPOT_ICONS = SPOT_ICONS;
 
   function init(spots) {
     var host = document.getElementById("mapViewport");

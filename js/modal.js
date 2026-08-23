@@ -36,11 +36,40 @@
       body.className = "modal-body";
       var title = document.createElement("h2");
       title.id = "modalTitle";
-      title.textContent = spot.name;
+      title.textContent = spot.title || spot.name;
       var description = document.createElement("p");
       description.className = "modal-description";
       description.textContent = spot.description;
-      body.append(title, description);
+      body.appendChild(title);
+
+      function appendBaikeButton(label, url, isImage) {
+        var baikeButton = document.createElement("a");
+        baikeButton.className = "baike-button" + (isImage ? " is-image" : "");
+        baikeButton.href = url;
+        baikeButton.target = "_blank";
+        baikeButton.rel = "noopener noreferrer";
+        baikeButton.textContent = label;
+        body.appendChild(baikeButton);
+      }
+
+      if (spot.baikeLinks && spot.baikeLinks.length) {
+        var baikeWrap = document.createElement("div");
+        baikeWrap.className = "baike-buttons";
+        spot.baikeLinks.forEach(function (link) {
+          var baikeButton = document.createElement("a");
+          baikeButton.className = "baike-button";
+          baikeButton.href = link.url;
+          baikeButton.target = "_blank";
+          baikeButton.rel = "noopener noreferrer";
+          baikeButton.textContent = link.name;
+          baikeWrap.appendChild(baikeButton);
+        });
+        body.appendChild(baikeWrap);
+      } else if (spot.baikeUrl) {
+        appendBaikeButton(spot.name, spot.baikeUrl, !!spot.baikeIsImage);
+      }
+
+      body.appendChild(description);
 
       if (spot.images && spot.images.length) {
         var gallery = document.createElement("div");
@@ -54,16 +83,6 @@
         body.appendChild(createSection("图片", gallery, "image-gallery"));
       }
 
-      if (spot.audio) {
-        var audioWrap = document.createElement("div");
-        var audio = document.createElement("audio");
-        audio.controls = true;
-        audio.preload = "none";
-        audio.src = spot.audio;
-        audioWrap.appendChild(audio);
-        body.appendChild(createSection("音频介绍", audioWrap));
-      }
-
       if (spot.video) {
         var video = document.createElement("video");
         video.controls = true;
@@ -73,6 +92,16 @@
         video.poster = spot.poster || "";
         video.src = spot.video;
         body.appendChild(createSection("视频介绍", video));
+      }
+
+      if (spot.audio) {
+        var audioWrap = document.createElement("div");
+        var audio = document.createElement("audio");
+        audio.controls = true;
+        audio.preload = "none";
+        audio.src = spot.audio;
+        audioWrap.appendChild(audio);
+        body.appendChild(createSection("音频介绍", audioWrap));
       }
 
       content.appendChild(body);

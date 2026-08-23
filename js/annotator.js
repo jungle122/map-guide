@@ -115,7 +115,10 @@
       downPoint = null;
     });
 
-    document.getElementById("hotspotLayer").querySelectorAll(".hotspot-anchor").forEach(function (marker) {
+    var hotspotElements = mapApi.getHotspotElements
+      ? mapApi.getHotspotElements()
+      : document.getElementById("hotspotLayer").querySelectorAll(".hotspot-anchor");
+    hotspotElements.forEach(function (marker) {
       var drag = null;
       marker.addEventListener("pointerdown", function (event) {
         if (!mapApi.isAnnotating() || !event.target.closest(".hotspot")) return;
@@ -151,7 +154,7 @@
         var point = positions[spot.id];
         return spot.name + ": { x: " + point.x.toFixed(2) + ", y: " + point.y.toFixed(2) + " }";
       }).join("\n");
-      copyText(text).then(function () { setStatus("四个景点坐标已全部复制。"); }).catch(function () { setStatus("复制失败，请逐项记录坐标。"); });
+      copyText(text).then(function () { setStatus(spots.length + "个景点坐标已全部复制。"); }).catch(function () { setStatus("复制失败，请逐项记录坐标。"); });
     });
 
     if (currentSpotId) selectSpot(currentSpotId);
