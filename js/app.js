@@ -3,6 +3,7 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     window.ModalModule.init();
+    window.VillageIntroModule.init();
     window.NavigationModule.init();
     window.SpotCardModule.init();
     window.RouteEntryModule.init();

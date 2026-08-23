@@ -49,6 +49,7 @@ button:focus-visible, [tabindex]:focus-visible {
 }
 
 .brand-lockup {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -112,6 +113,17 @@ button:focus-visible, [tabindex]:focus-visible {
   white-space: nowrap;
   pointer-events: auto;
 }
+
+.brand-intro-trigger {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+.brand-intro-trigger:hover { box-shadow: inset 0 0 0 2px rgba(63,99,60,0.2); }
 .site-record a {
   color: rgba(36,52,47,0.58);
   font-size: 64px;
@@ -157,6 +169,10 @@ button:focus-visible, [tabindex]:focus-visible {
 
 .spot-selector { display: grid; gap: 6px; margin-top: 14px; color: var(--ink-soft); font-size: 0.75rem; font-weight: 700; }
 .spot-selector select { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid rgba(63,99,60,0.24); border-radius: 12px; color: var(--ink); background: white; font: inherit; }
+.temporary-spot-name { display: grid; gap: 6px; margin-top: 14px; color: var(--ink-soft); font-size: 0.75rem; font-weight: 700; }
+.temporary-spot-create { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.temporary-spot-create input { min-width: 0; min-height: 44px; padding: 0 12px; border: 1px solid rgba(63,99,60,0.24); border-radius: 12px; color: var(--ink); background: white; font: inherit; }
+.temporary-spot-create button { border: 0; border-radius: 12px; padding: 0 0.9rem; color: white; background: var(--water-deep); font-weight: 800; cursor: pointer; }
 .coordinate-readout, .annotation-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .coordinate-readout label { min-width: 100px; padding: 0.7rem 0.85rem; border-radius: 12px; background: #e2ebdf; font-variant-numeric: tabular-nums; }
 .coordinate-readout button, .annotation-actions button {
@@ -168,6 +184,9 @@ button:focus-visible, [tabindex]:focus-visible {
   cursor: pointer;
 }
 .coordinate-readout button:disabled { cursor: not-allowed; opacity: 0.45; }
+.annotation-actions button:disabled { cursor: not-allowed; opacity: 0.45; }
+.annotation-actions .annotation-danger { color: white; background: var(--brick); }
+.annotation-actions .annotation-quiet { color: var(--moss-dark); background: #e2ebdf; }
 .coordinate-list { display: grid; gap: 6px; margin-top: 12px; }
 .coordinate-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; width: 100%; padding: 9px 10px; border: 1px solid transparent; border-radius: 11px; color: var(--ink); background: rgba(255,255,255,0.62); text-align: left; cursor: pointer; }
 .coordinate-row span { overflow: hidden; font-size: 0.76rem; text-overflow: ellipsis; white-space: nowrap; }
@@ -183,6 +202,8 @@ button:focus-visible, [tabindex]:focus-visible {
   .brand-lockup h1 { font-size: 1.17rem; }
   .topbar-action { padding: 0.62rem 0.76rem; font-size: 0.78rem; }
   .annotator-panel { right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); width: calc(100% - 20px); max-height: 58dvh; }
+  .temporary-spot-create { grid-template-columns: 1fr; }
+  .temporary-spot-create button { min-height: 42px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

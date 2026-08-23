@@ -71,14 +71,27 @@
 
       body.appendChild(description);
 
+      if (spot.additionalInfo) {
+        var additionalInfo = document.createElement("p");
+        additionalInfo.textContent = spot.additionalInfo;
+        body.appendChild(createSection("古迹介绍", additionalInfo, "modal-description"));
+      }
+
       if (spot.images && spot.images.length) {
         var gallery = document.createElement("div");
         spot.images.forEach(function (src, index) {
+          var imageLink = document.createElement("a");
+          imageLink.className = "image-gallery-link";
+          imageLink.href = src;
+          imageLink.target = "_blank";
+          imageLink.rel = "noopener noreferrer";
+          imageLink.setAttribute("aria-label", "查看" + spot.name + "图片 " + (index + 1));
           var image = document.createElement("img");
           image.src = src;
           image.alt = spot.name + "图片 " + (index + 1);
           image.loading = "lazy";
-          gallery.appendChild(image);
+          imageLink.appendChild(image);
+          gallery.appendChild(imageLink);
         });
         body.appendChild(createSection("图片", gallery, "image-gallery"));
       }
@@ -86,12 +99,11 @@
       if (spot.video) {
         var video = document.createElement("video");
         video.controls = true;
-        video.preload = "none";
+        video.preload = "metadata";
         video.playsInline = true;
         video.setAttribute("webkit-playsinline", "true");
-        video.poster = spot.poster || "";
-        video.src = spot.video;
-        body.appendChild(createSection("视频介绍", video));
+        video.src = spot.video + "#t=0.1";
+        body.appendChild(createSection("童谣视频", video));
       }
 
       if (spot.audio) {
@@ -101,7 +113,7 @@
         audio.preload = "none";
         audio.src = spot.audio;
         audioWrap.appendChild(audio);
-        body.appendChild(createSection("音频介绍", audioWrap));
+        body.appendChild(createSection("童谣音频", audioWrap));
       }
 
       content.appendChild(body);

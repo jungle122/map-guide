@@ -19,6 +19,8 @@
     images: ["assets/images/fanhou-geci/01.jpg", "assets/images/fanhou-geci/02.jpg", "assets/images/fanhou-geci/03.jpg"],
     audio: "assets/audio/paipazuo.mp3",
     video: "assets/video/paipazuo.mp4",
-    poster: "assets/images/fanhou-geci/01.jpg"
+    baikeUrl: "http://www.huang-lian.com/Scenic/showproduct.php?id=21",
+    baikeIntro: "藩侯何公祠俗称“藩侯祠”，位于黄连澳心街18号，始建于明正德年间，清代多次重修，20世纪90年代和2018年再度重修。祠堂坐北向南，面阔三间、进深三进，保留灰塑龙舟脊、人字封火山墙和青砖石脚等传统建筑特色。",
+    additionalInfo: "俗称“藩侯祠”。位于黄连澳心街18号，始建于明正德年间，清代多次重修，20世纪90年代、2008年再度重修。坐北向南，面阔三间11.2米，进深三进39.9米。灰塑龙舟脊，人字封火山墙，青砖石脚，风格古朴、宏大。“藩侯祠”一名来由，与黄连何氏六世祖何道祐有关。南宋末年端宗赵昰入福州，道祐捐资助饷，募勇、备船、购粮，以抗击追击南宋朝廷的元兵，因此受封南海显灵侯。"
   });
 })();

@@ -21,7 +21,6 @@
     audio: "assets/audio/yueguangguang.mp3",
     video: "assets/video/yueguangguang.mp4",
     baikeUrl: "http://www.huang-lian.com/Scenic/showproduct.php?id=1",
-    baikeIntro: "何诒燕堂码头俗称“石狮脚”，是黄连最兴盛的码头，从堤上步下十五六级台阶是一个宽阔的大平台，平台及台阶均为光滑平整的大麻石板。码头两侧立有一对明代正德年间雕刻的红砂岩石狮，是顺德范围内保留得最完整、最大的明朝古石狮，距今已有约500年历史。",
-    poster: "assets/images/shishijiao/01.webp"
+    baikeIntro: "何诒燕堂码头俗称“石狮脚”，是黄连最兴盛的码头，从堤上步下十五六级台阶是一个宽阔的大平台，平台及台阶均为光滑平整的大麻石板。码头两侧立有一对明代正德年间雕刻的红砂岩石狮，是顺德范围内保留得最完整、最大的明朝古石狮，距今已有约500年历史。"
   });
 })();

@@ -22,7 +22,6 @@
     video: "assets/video/qiqiwangguoqu.mp4",
     baikeUrl: "assets/images/jiyaxiang/baike-intro.png",
     baikeIntro: "鸡鸭巷是黄连古村保存完好的老街巷之一，巷名传承百年，麻石青砖蜿蜒向前，两旁老屋错落相连。旧时巷内市井烟火气息浓厚，周边猪市口、米铺、炭铺、布铺、茶楼等商铺鳞次栉比，是昔日黄连圩商贸繁华的一个缩影。",
-    baikeIsImage: true,
-    poster: "assets/images/jiyaxiang/01.webp"
+    baikeIsImage: true
   });
 })();

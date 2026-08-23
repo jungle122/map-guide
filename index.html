@@ -7,15 +7,16 @@
   <meta name="description" content="粤韵童行黄连古村联动导览地图">
   <title>黄连古村联动导览</title>
   <link rel="icon" href="assets/favicon-blue.jpg?v=20260823-1" type="image/jpeg">
-  <link rel="stylesheet" href="css/main.css?v=20260823-3">
-  <link rel="stylesheet" href="css/map.css?v=20260823-3">
-  <link rel="stylesheet" href="css/modal.css?v=20260823-3">
+  <link rel="stylesheet" href="css/main.css?v=20260823-5">
+  <link rel="stylesheet" href="css/map.css?v=20260823-8">
+  <link rel="stylesheet" href="css/modal.css?v=20260823-4">
   <link rel="stylesheet" href="css/routes.css?v=20260823-1">
 </head>
 <body class="map-app">
   <div class="app-shell">
     <header class="topbar">
       <div class="brand-lockup">
+        <button id="openVillageIntro" class="brand-intro-trigger" type="button" aria-label="查看黄连古村介绍"></button>
         <img class="brand-mark" src="assets/favicon-blue.jpg?v=20260823-1" alt="">
         <div>
           <p>粤韵童行·童谣联动地图</p>
@@ -86,9 +87,16 @@
           </div>
           <button id="closeAnnotator" type="button" aria-label="关闭坐标标注">×</button>
         </div>
-        <p>先选择景点，再点击地图放置；也可以直接拖动大头针微调。</p>
+        <p>所有调整只在当前页面生效，刷新后自动恢复。选择点位后点击地图放置，也可以直接拖动微调。</p>
+        <label class="temporary-spot-name">
+          <span>临时点名称</span>
+          <span class="temporary-spot-create">
+            <input id="temporarySpotName" type="text" maxlength="30" placeholder="留空则自动编号">
+            <button id="addTemporarySpot" type="button">添加临时点</button>
+          </span>
+        </label>
         <label class="spot-selector">
-          <span>当前景点</span>
+          <span>当前点位</span>
           <select id="annotationSpot"></select>
         </label>
         <div class="coordinate-readout">
@@ -98,6 +106,9 @@
         </div>
         <div class="annotation-actions">
           <button id="copyAllCoordinates" type="button">复制全部坐标</button>
+          <button id="deleteCurrentSpot" class="annotation-danger" type="button">删除当前点</button>
+          <button id="clearTemporarySpots" class="annotation-quiet" type="button">清空临时点</button>
+          <button id="resetAnnotationSession" class="annotation-quiet" type="button">恢复初始状态</button>
         </div>
         <div id="coordinateList" class="coordinate-list"></div>
         <output id="annotationStatus" class="status-message" aria-live="polite">请选择景点后点击地图。</output>
@@ -167,19 +178,21 @@
   <script src="js/spots/tianhou-xiancan.js?v=20260823-3" defer></script>
   <script src="js/spots/longshi.js?v=20260823-3" defer></script>
   <script src="js/spots/jiyaxiang.js?v=20260823-3" defer></script>
-  <script src="js/spots/fanhou-geci.js?v=20260823-3" defer></script>
-  <script src="js/spots/lianjiqiao.js?v=20260823-3" defer></script>
+  <script src="js/spots/fanhou-geci.js?v=20260823-6" defer></script>
+  <script src="js/spots/lianjiqiao.js?v=20260823-5" defer></script>
+  <script src="js/spots/cultural-spots.js?v=20260823-1" defer></script>
   <script src="js/routes.js?v=20260823-1" defer></script>
   <script src="js/route-layer.js?v=20260823-1" defer></script>
   <script src="js/route-entry.js?v=20260823-1" defer></script>
   <script src="js/media.js" defer></script>
-  <script src="js/modal.js?v=20260823-3" defer></script>
+  <script src="js/modal.js?v=20260823-5" defer></script>
   <script src="js/navigation.js?v=20260823-1" defer></script>
   <script src="js/spot-card.js?v=20260823-1" defer></script>
-  <script src="js/map.js?v=20260823-3" defer></script>
+  <script src="js/map.js?v=20260823-5" defer></script>
   <script src="js/vendor/openseadragon/6.1.0/openseadragon.min.js" defer></script>
-  <script src="js/map-tiles.js?v=20260823-1" defer></script>
-  <script src="js/annotator.js?v=20260823-1" defer></script>
-  <script src="js/app.js?v=20260823-1" defer></script>
+  <script src="js/map-tiles.js?v=20260823-4" defer></script>
+  <script src="js/annotator.js?v=20260823-4" defer></script>
+  <script src="js/village-intro.js?v=20260823-1" defer></script>
+  <script src="js/app.js?v=20260823-2" defer></script>
 </body>
 </html>

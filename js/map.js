@@ -150,9 +150,13 @@
     };
     window.SPOT_ICONS = SPOT_ICONS;
 
-    spots.forEach(function (spot) {
+    function createHotspot(spot) {
+      var existing = hotspotLayer.querySelector('.hotspot-anchor[data-spot-id="' + spot.id + '"]');
+      if (existing) return existing;
       var anchor = document.createElement("div");
       anchor.className = "hotspot-anchor";
+      if (spot.isTemporary) anchor.classList.add("is-temporary");
+      if (spot.isSecondary) anchor.classList.add("is-secondary");
       anchor.dataset.spotId = spot.id;
       anchor.dataset.x = spot.x;
       anchor.dataset.y = spot.y;
@@ -186,12 +190,22 @@
           anchor.dataset.wasDragged = "false";
           return;
         }
-        window.SpotCard.open(spot, event.currentTarget);
+        if (spot.isSecondary) window.SpotModal.open(spot, event.currentTarget);
+        else window.SpotCard.open(spot, event.currentTarget);
       });
       anchor.appendChild(marker);
       anchor.appendChild(label);
       hotspotLayer.appendChild(anchor);
-    });
+      if (initialized) positionElement(anchor);
+      return anchor;
+    }
+
+    function removeHotspot(spotId) {
+      var anchor = hotspotLayer.querySelector('.hotspot-anchor[data-spot-id="' + spotId + '"]');
+      if (anchor) anchor.remove();
+    }
+
+    spots.forEach(createHotspot);
 
     viewport.addEventListener("wheel", function (event) {
       event.preventDefault();
@@ -286,6 +300,9 @@
       clientToPercent: clientToPercent,
       setAnnotating: function (enabled) { annotating = enabled; viewport.classList.toggle("is-annotating", enabled); },
       isAnnotating: function () { return annotating; },
+      getHotspotElements: function () { return Array.from(hotspotLayer.querySelectorAll(".hotspot-anchor")); },
+      addHotspot: createHotspot,
+      removeHotspot: removeHotspot,
       setHotspotPosition: function (spotId, point) {
         var anchor = hotspotLayer.querySelector('.hotspot-anchor[data-spot-id="' + spotId + '"]');
         if (anchor) { anchor.dataset.x = point.x; anchor.dataset.y = point.y; positionElement(anchor); }

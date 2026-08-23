@@ -13,6 +13,7 @@
 }
 .map-viewport.is-dragging { cursor: grabbing; }
 .map-viewport.is-annotating { cursor: crosshair; }
+.map-viewport.is-annotating .hotspot { touch-action: none; }
 
 .map-viewer {
   position: absolute;
@@ -152,6 +153,47 @@
 .hotspot:not(.has-icon):hover,
 .hotspot:not(.has-icon):focus-visible { background: var(--water-deep); }
 .hotspot:not(.has-icon).is-dragging { background: var(--water-deep); }
+.hotspot-anchor.is-temporary .hotspot:not(.has-icon) { background: var(--water-deep); border-style: dashed; }
+.hotspot-anchor.is-temporary .hotspot-label { border-style: dashed; color: var(--water-deep); }
+.hotspot-anchor.is-secondary { z-index: 1; }
+.hotspot-anchor.is-secondary .hotspot {
+  width: 30px;
+  height: 30px;
+  transform: translate(-50%, -70%) rotate(-45deg);
+  border-width: 2px;
+  border-color: rgba(255,255,255,0.86);
+  background: rgb(63,99,60);
+  box-shadow: 0 4px 10px rgba(28,52,41,0.18);
+  opacity: 1;
+}
+.hotspot-anchor.is-secondary .hotspot::after { width: 26%; height: 26%; left: 37%; top: 37%; }
+.hotspot-anchor.is-secondary .hotspot:hover,
+.hotspot-anchor.is-secondary .hotspot:focus-visible { background: var(--moss-dark); opacity: 1; }
+.hotspot-anchor.is-secondary .hotspot-label {
+  transform: translate(20px, calc(-50% - 10px));
+  transform-origin: 0 50%;
+  padding: 4px 7px;
+  border-color: rgba(63,99,60,0.2);
+  color: rgb(36,52,47);
+  background: rgb(250,252,248);
+  box-shadow: 0 3px 9px rgba(28,52,41,0.1);
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 1;
+}
+.hotspot-anchor.is-secondary .hotspot-label::after {
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: -5px;
+  border-top: 1px solid rgba(63,99,60,0.34);
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 1px solid rgba(63,99,60,0.34);
+  transform: translateY(-50%) rotate(-45deg);
+}
+.hotspot-anchor.is-secondary:hover .hotspot-label,
+.hotspot-anchor.is-secondary:focus-within .hotspot-label { opacity: 1; }
 
 .hotspot-label {
   position: absolute;
