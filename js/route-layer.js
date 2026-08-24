@@ -134,12 +134,14 @@
 
     activeStopMarkers = route.stops.slice();
     updateStatusPill(route);
+    if (window.RouteWalker) window.RouteWalker.start(route);
   }
 
   function clearRoute() {
     activeRouteId = null;
     activeStopMarkers = [];
     document.body.classList.remove("route-active");
+    if (window.RouteWalker) window.RouteWalker.stop();
     if (routeLayer) routeLayer.innerHTML = "";
     updateStatusPill(null);
   }
