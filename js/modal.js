@@ -106,13 +106,14 @@
         body.appendChild(createSection("童谣视频", video));
       }
 
+      var introAudio = null;
       if (spot.audio) {
+        introAudio = document.createElement("audio");
+        introAudio.controls = true;
+        introAudio.preload = "auto";
+        introAudio.src = spot.audio;
         var audioWrap = document.createElement("div");
-        var audio = document.createElement("audio");
-        audio.controls = true;
-        audio.preload = "none";
-        audio.src = spot.audio;
-        audioWrap.appendChild(audio);
+        audioWrap.appendChild(introAudio);
         body.appendChild(createSection("童谣音频", audioWrap));
       }
 
@@ -121,6 +122,15 @@
       modal.hidden = false;
       document.body.classList.add("modal-open");
       closeButton.focus({ preventScroll: true });
+
+      // 点开介绍后自动播放童谣音频：该调用源自"查看介绍"按钮的用户手势，
+      // 浏览器自动播放策略允许。若被系统拦截则静默忽略，由用户手动点播放。
+      if (introAudio) {
+        var playPromise = introAudio.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(function () { /* autoplay blocked, ignore */ });
+        }
+      }
     }
 
     closeButton.addEventListener("click", close);
