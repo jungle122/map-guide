@@ -59,7 +59,7 @@
   width: 0;
   height: 0;
   z-index: 2;
-  scale: var(--hotspot-group-scale, 1);
+  scale: 1;
   transform-origin: 0 0;
   transition: opacity 180ms ease, visibility 180ms ease;
 }
@@ -283,6 +283,17 @@
   transform: translateX(-50%);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
+
+/* 景点图标始终可操作，名称由独立开关控制；路线站点名称不使用该类。 */
+.map-viewport .hotspot-label {
+  visibility: hidden;
+  opacity: 0;
+}
+.map-viewport.are-hotspot-names-visible .hotspot-label {
+  visibility: visible;
+  opacity: 1;
+}
+
 .hotspot-anchor[data-spot-id="nanpu-he-ancestral-hall"] .hotspot-label.has-icon::before {
   width: 12px;
   height: 7px;
@@ -334,7 +345,8 @@
 }
 .toolbar-rule { width: 24px; height: 1px; margin: 2px 0; background: var(--line); }
 .map-toolbar .reset-button { font-size: 0.75rem; font-weight: 700; }
-.map-toolbar .immersive-button {
+.map-toolbar .immersive-button,
+.map-toolbar .label-toggle-button {
   width: 52px;
   min-height: 48px;
   padding: 3px;
@@ -344,19 +356,22 @@
   font-weight: 800;
   line-height: 1.08;
 }
-.map-toolbar .immersive-button span {
+.map-toolbar .immersive-button span,
+.map-toolbar .label-toggle-button span {
   display: block;
   width: 2.2em;
   font-size: inherit;
   line-height: inherit;
   word-break: break-all;
 }
-.map-toolbar .immersive-button[aria-pressed="true"] {
+.map-toolbar .immersive-button[aria-pressed="true"],
+.map-toolbar .label-toggle-button[aria-pressed="true"] {
   color: white;
   background: var(--moss-dark);
   box-shadow: 0 5px 12px rgba(63,99,60,0.22);
 }
-.map-toolbar .immersive-button:focus-visible {
+.map-toolbar .immersive-button:focus-visible,
+.map-toolbar .label-toggle-button:focus-visible {
   outline: 3px solid rgba(185,78,61,0.42);
   outline-offset: 2px;
 }
