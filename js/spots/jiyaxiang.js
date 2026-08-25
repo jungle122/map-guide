@@ -17,6 +17,7 @@
     baiduShareUrl: "https://api.map.baidu.com/marker?location=22.884771,113.148211&title=%E9%B8%A1%E9%B8%AD%E5%B7%B7&content=%E9%B8%A1%E9%B8%AD%E5%B7%B7&coord_type=gcj02&output=html&src=huanglian-map",
     navigationMode: "walk",
     description: "鸡鸭巷是黄连古村保存完好的老街巷，巷名传承百年，麻石青砖蜿蜒向前，两旁老屋错落相连。这条街巷名字自带趣味，旧时巷内充满市井烟火，到处都是追逐奔跑的孩童。长辈们常常逗着小朋友，教大家传唱《齐齐望过去》，清脆童谣在古巷之间代代回响。",
+    additionalInfo: "鸡鸭巷是黄连古村中一条充满市井烟火气的老巷。其名源于旧时此处为四乡民众趁圩买卖鸡鸭鹅等家禽的集散地，每逢圩日，巷内人头攒动、交易繁忙，见证了黄连作为千年商贸古村的繁华过往。龚毅伯有诗云：“鸡鸭巷前猪市口，物资相聚总交流，每逢墟日人如织，采罢同归海客舟。”描绘了当时外乡人来黄连做买卖趁墟的情景。巷名朴实生动，至今仍保留着浓浓的生活气息。",
     images: ["assets/images/jiyaxiang/01.webp", "assets/images/jiyaxiang/02.webp"],
     audio: "assets/audio/qiqiwangguoqu.mp3",
     video: "assets/video/qiqiwangguoqu.mp4",
