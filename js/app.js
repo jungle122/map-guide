@@ -2,6 +2,7 @@
   "use strict";
 
   document.addEventListener("DOMContentLoaded", function () {
+    window.ImageViewerModule.init();
     window.ModalModule.init();
     window.VillageIntroModule.init();
     window.NavigationModule.init();

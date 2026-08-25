@@ -14,12 +14,16 @@
 
   function init() {
     var modal = document.getElementById("spotModal");
+    var dialog = modal.querySelector(".modal-dialog");
     var content = document.getElementById("modalContent");
     var closeButton = document.getElementById("closeModal");
     var lastTrigger = null;
 
     function close() {
       if (modal.hidden) return;
+      if (window.ImageViewer && window.ImageViewer.isOpen()) {
+        window.ImageViewer.close({ restoreFocus: false });
+      }
       window.MediaController.stopAll(content, true);
       content.replaceChildren();
       modal.hidden = true;
@@ -80,18 +84,19 @@
       if (spot.images && spot.images.length) {
         var gallery = document.createElement("div");
         spot.images.forEach(function (src, index) {
-          var imageLink = document.createElement("a");
-          imageLink.className = "image-gallery-link";
-          imageLink.href = src;
-          imageLink.target = "_blank";
-          imageLink.rel = "noopener noreferrer";
-          imageLink.setAttribute("aria-label", "查看" + spot.name + "图片 " + (index + 1));
+          var imageButton = document.createElement("button");
+          imageButton.type = "button";
+          imageButton.className = "image-gallery-button";
+          imageButton.setAttribute("aria-label", "查看" + spot.name + "图片 " + (index + 1));
           var image = document.createElement("img");
           image.src = src;
           image.alt = spot.name + "图片 " + (index + 1);
           image.loading = "lazy";
-          imageLink.appendChild(image);
-          gallery.appendChild(imageLink);
+          imageButton.appendChild(image);
+          imageButton.addEventListener("click", function () {
+            window.ImageViewer.open(spot.images, index, imageButton, spot.title || spot.name);
+          });
+          gallery.appendChild(imageButton);
         });
         body.appendChild(createSection("图片", gallery, "image-gallery"));
       }
@@ -121,6 +126,7 @@
       window.MediaController.bind(content);
       modal.hidden = false;
       document.body.classList.add("modal-open");
+      dialog.scrollTop = 0;
       closeButton.focus({ preventScroll: true });
 
       // 点开介绍后自动播放童谣音频：该调用源自"查看介绍"按钮的用户手势，
@@ -136,7 +142,9 @@
 
     closeButton.addEventListener("click", close);
     modal.querySelectorAll("[data-close-modal]").forEach(function (element) { element.addEventListener("click", close); });
-    document.addEventListener("keydown", function (event) { if (event.key === "Escape") close(); });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !(window.ImageViewer && window.ImageViewer.isOpen())) close();
+    });
 
     window.SpotModal = { open: open, close: close };
   }
