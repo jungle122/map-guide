@@ -19,7 +19,6 @@
       "assets/images/lianjiqiao/01.jpg",
       "assets/images/lianjiqiao/02.jpg",
       "assets/images/lianjiqiao/source-01.jpg",
-      "assets/images/lianjiqiao/source-02.jpg",
       "assets/images/lianjiqiao/source-03.jpg",
       "assets/images/lianjiqiao/source-04.jpg"
     ],

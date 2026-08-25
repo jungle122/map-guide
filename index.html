@@ -8,9 +8,10 @@
   <title>黄连古村联动导览</title>
   <link rel="icon" href="assets/favicon-blue.jpg?v=20260823-1" type="image/jpeg">
   <link rel="stylesheet" href="css/main.css?v=20260825-1">
-  <link rel="stylesheet" href="css/map.css?v=20260825-6">
+  <link rel="stylesheet" href="css/map.css?v=20260825-8">
   <link rel="stylesheet" href="css/sheets.css?v=20260825-1">
-  <link rel="stylesheet" href="css/modal.css?v=20260825-1">
+  <link rel="stylesheet" href="css/modal.css?v=20260825-3">
+  <link rel="stylesheet" href="css/image-viewer.css?v=20260825-1">
   <link rel="stylesheet" href="css/routes.css?v=20260825-1">
 </head>
 <body class="map-app">
@@ -54,6 +55,10 @@
           <button id="zoomOut" type="button" aria-label="缩小地图"><span aria-hidden="true">−</span></button>
           <span class="toolbar-rule" aria-hidden="true"></span>
           <button id="resetView" class="reset-button" type="button">复位</button>
+          <span class="toolbar-rule" aria-hidden="true"></span>
+          <button id="toggleHotspotNames" class="label-toggle-button" type="button" aria-label="显示地图景点名称" aria-pressed="false">
+            <span id="toggleHotspotNamesLabel">显示名称</span>
+          </button>
           <span class="toolbar-rule" aria-hidden="true"></span>
           <button id="toggleHotspots" class="immersive-button" type="button" aria-label="隐藏地图选点，沉浸看图" aria-pressed="false">
             <span id="toggleHotspotsLabel">沉浸看图</span>
@@ -129,6 +134,31 @@
     </section>
   </div>
 
+  <div id="imageViewer" class="image-viewer" hidden>
+    <div class="image-viewer-backdrop" data-close-image-viewer></div>
+    <section class="image-viewer-dialog" role="dialog" aria-modal="true" aria-labelledby="imageViewerTitle">
+      <header class="image-viewer-heading">
+        <div>
+          <p>景点影像</p>
+          <h2 id="imageViewerTitle">图片查看</h2>
+        </div>
+        <output id="imageViewerCounter" class="image-viewer-counter" aria-live="polite"></output>
+        <button id="closeImageViewer" class="image-viewer-close" type="button" aria-label="关闭图片查看器">×</button>
+      </header>
+      <div class="image-viewer-stage">
+        <button id="previousImage" class="image-viewer-page image-viewer-previous" type="button" aria-label="上一张图片">‹</button>
+        <div id="imageViewerCanvas" class="image-viewer-canvas" aria-label="可缩放图片区域"></div>
+        <p id="imageViewerError" class="image-viewer-error" role="status" hidden>图片加载失败，请查看其他图片。</p>
+        <button id="nextImage" class="image-viewer-page image-viewer-next" type="button" aria-label="下一张图片">›</button>
+      </div>
+      <footer class="image-viewer-controls" aria-label="图片缩放控制">
+        <button id="zoomOutImage" type="button" aria-label="缩小图片">−</button>
+        <button id="fitImage" class="image-viewer-fit" type="button">适应窗口</button>
+        <button id="zoomInImage" type="button" aria-label="放大图片">＋</button>
+      </footer>
+    </section>
+  </div>
+
   <div id="navigationSheet" class="navigation-sheet" hidden>
     <div class="navigation-backdrop" data-close-navigation></div>
     <section class="navigation-dialog" role="dialog" aria-modal="true" aria-labelledby="navigationTitle">
@@ -188,21 +218,32 @@
   <script src="js/spots/jiyaxiang.js?v=20260825-3" defer></script>
   <script src="js/spots/fanhou-geci.js?v=20260825-9" defer></script>
   <script src="js/spots/lianjiqiao.js?v=20260825-5" defer></script>
-  <script src="js/spots/cultural-spots.js?v=20260825-10" defer></script>
+  <script src="js/spots/village-history-museum.js?v=20260825-1" defer></script>
+  <script src="js/spots/artist-village.js?v=20260825-1" defer></script>
+  <script src="js/spots/xuepu-school.js?v=20260825-1" defer></script>
+  <script src="js/spots/shiguici-fu-tombstone.js?v=20260825-1" defer></script>
+  <script src="js/spots/visitor-industrial-park.js?v=20260825-1" defer></script>
+  <script src="js/spots/aoxin-heshi-ancestral-hall.js?v=20260825-1" defer></script>
+  <script src="js/spots/cangju-temple.js?v=20260825-1" defer></script>
+  <script src="js/spots/waterfront-park.js?v=20260825-1" defer></script>
+  <script src="js/spots/nanpu-he-ancestral-hall.js?v=20260825-1" defer></script>
+  <script src="js/spots/heshi-old-house.js?v=20260825-1" defer></script>
+  <script src="js/spots/jingsou-liang-ancestral-hall.js?v=20260825-1" defer></script>
   <script src="js/routes.js?v=20260825-2" defer></script>
   <script src="js/route-layer.js?v=20260825-1" defer></script>
   <script src="js/route-entry.js?v=20260825-1" defer></script>
   <script src="js/media.js" defer></script>
-  <script src="js/modal.js?v=20260825-1" defer></script>
+  <script src="js/modal.js?v=20260825-3" defer></script>
   <script src="js/navigation.js?v=20260825-1" defer></script>
   <script src="js/spot-card.js?v=20260825-2" defer></script>
-  <script src="js/hotspot-visibility.js?v=20260825-1" defer></script>
+  <script src="js/hotspot-visibility.js?v=20260825-3" defer></script>
   <script src="js/map.js?v=20260825-1" defer></script>
   <script src="js/vendor/openseadragon/6.1.0/openseadragon.min.js" defer></script>
+  <script src="js/image-viewer.js?v=20260825-1" defer></script>
   <script src="js/map-tiles.js?v=20260825-1" defer></script>
-  <script src="js/annotator.js?v=20260825-1" defer></script>
+  <script src="js/annotator.js?v=20260825-2" defer></script>
   <script src="js/village-intro.js?v=20260825-3" defer></script>
-  <script src="js/route-walker.js?v=20260825-1" defer></script>
-  <script src="js/app.js?v=20260825-3" defer></script>
+  <script src="js/route-walker.js?v=20260825-3" defer></script>
+  <script src="js/app.js?v=20260825-4" defer></script>
 </body>
 </html>
