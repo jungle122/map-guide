@@ -7,10 +7,11 @@
   <meta name="description" content="粤韵童行黄连古村联动导览地图">
   <title>黄连古村联动导览</title>
   <link rel="icon" href="assets/favicon-blue.jpg?v=20260823-1" type="image/jpeg">
-  <link rel="stylesheet" href="css/main.css?v=20260824-1">
-  <link rel="stylesheet" href="css/map.css?v=20260824-2">
-  <link rel="stylesheet" href="css/modal.css?v=20260823-4">
-  <link rel="stylesheet" href="css/routes.css?v=20260823-1">
+  <link rel="stylesheet" href="css/main.css?v=20260825-1">
+  <link rel="stylesheet" href="css/map.css?v=20260825-6">
+  <link rel="stylesheet" href="css/sheets.css?v=20260825-1">
+  <link rel="stylesheet" href="css/modal.css?v=20260825-1">
+  <link rel="stylesheet" href="css/routes.css?v=20260825-1">
 </head>
 <body class="map-app">
   <div class="app-shell">
@@ -53,6 +54,10 @@
           <button id="zoomOut" type="button" aria-label="缩小地图"><span aria-hidden="true">−</span></button>
           <span class="toolbar-rule" aria-hidden="true"></span>
           <button id="resetView" class="reset-button" type="button">复位</button>
+          <span class="toolbar-rule" aria-hidden="true"></span>
+          <button id="toggleHotspots" class="immersive-button" type="button" aria-label="隐藏地图选点，沉浸看图" aria-pressed="false">
+            <span id="toggleHotspotsLabel">沉浸看图</span>
+          </button>
         </div>
 
         <div id="routeStatusPill" class="route-status-pill" hidden>
@@ -161,38 +166,43 @@
           <span class="route-card-badge" style="background:#b94e3d">半日游</span>
           <strong>古村精华线</strong>
           <small>约 3 小时 · 7 站</small>
-          <span class="route-card-desc">从黄连村史馆出发，经游客服务中心、顺德厨师文化展示馆、雪圃学校、澳心何氏先祠、画家艺术村，最后到达石狮脚。</span>
+          <span class="route-card-desc">从村史馆出发，经游客服务中心、顺德厨师文化展示馆、雪圃学校、澳心何氏先祠、画家艺术村，最后到达石狮脚。</span>
         </button>
         <button class="route-card" type="button" data-route-id="fullDay">
           <span class="route-card-badge" style="background:#3f633c">一日游</span>
           <strong>古村深度环线</strong>
           <small>约 6 小时 · 13 站</small>
-          <span class="route-card-desc">从黄连村史馆出发，依次游览游客服务中心、顺德厨师文化展示馆、雪圃学校、仓沮圣庙、石龟祠公园、古庙公园、黄连龙虱馆、滨水公园、南大将军古庙、澳心何氏先祠、画家艺术村和石狮脚。</span>
+          <span class="route-card-desc">从村史馆出发，依次游览游客服务中心、顺德厨师文化展示馆、雪圃学校、仓沮圣庙、石龟祠公园、古庙公园、黄连龙虱馆、滨水公园、南大将军古庙、澳心何氏先祠、画家艺术村和石狮脚。</span>
         </button>
       </div>
     </section>
   </div>
 
   <script src="js/data.js" defer></script>
-  <script src="js/spots/shishijiao.js?v=20260823-3" defer></script>
-  <script src="js/spots/tianhou-xiancan.js?v=20260823-3" defer></script>
-  <script src="js/spots/longshi.js?v=20260823-3" defer></script>
-  <script src="js/spots/jiyaxiang.js?v=20260823-3" defer></script>
-  <script src="js/spots/fanhou-geci.js?v=20260823-6" defer></script>
-  <script src="js/spots/lianjiqiao.js?v=20260823-5" defer></script>
-  <script src="js/spots/cultural-spots.js?v=20260823-3" defer></script>
-  <script src="js/routes.js?v=20260823-1" defer></script>
-  <script src="js/route-layer.js?v=20260823-1" defer></script>
-  <script src="js/route-entry.js?v=20260823-1" defer></script>
+  <script src="js/app-utils.js?v=20260825-1" defer></script>
+  <script src="js/map-config.js?v=20260825-3" defer></script>
+  <script src="js/hotspot-view.js?v=20260825-1" defer></script>
+  <script src="js/spots/shishijiao.js?v=20260825-3" defer></script>
+  <script src="js/spots/tianhou-xiancan.js?v=20260825-3" defer></script>
+  <script src="js/spots/longshi.js?v=20260825-3" defer></script>
+  <script src="js/spots/jiyaxiang.js?v=20260825-3" defer></script>
+  <script src="js/spots/fanhou-geci.js?v=20260825-9" defer></script>
+  <script src="js/spots/lianjiqiao.js?v=20260825-5" defer></script>
+  <script src="js/spots/cultural-spots.js?v=20260825-10" defer></script>
+  <script src="js/routes.js?v=20260825-2" defer></script>
+  <script src="js/route-layer.js?v=20260825-1" defer></script>
+  <script src="js/route-entry.js?v=20260825-1" defer></script>
   <script src="js/media.js" defer></script>
-  <script src="js/modal.js?v=20260823-5" defer></script>
-  <script src="js/navigation.js?v=20260823-1" defer></script>
-  <script src="js/spot-card.js?v=20260823-1" defer></script>
-  <script src="js/map.js?v=20260823-6" defer></script>
+  <script src="js/modal.js?v=20260825-1" defer></script>
+  <script src="js/navigation.js?v=20260825-1" defer></script>
+  <script src="js/spot-card.js?v=20260825-2" defer></script>
+  <script src="js/hotspot-visibility.js?v=20260825-1" defer></script>
+  <script src="js/map.js?v=20260825-1" defer></script>
   <script src="js/vendor/openseadragon/6.1.0/openseadragon.min.js" defer></script>
-  <script src="js/map-tiles.js?v=20260824-1" defer></script>
-  <script src="js/annotator.js?v=20260823-4" defer></script>
-  <script src="js/village-intro.js?v=20260823-1" defer></script>
-  <script src="js/app.js?v=20260823-2" defer></script>
+  <script src="js/map-tiles.js?v=20260825-1" defer></script>
+  <script src="js/annotator.js?v=20260825-1" defer></script>
+  <script src="js/village-intro.js?v=20260825-3" defer></script>
+  <script src="js/route-walker.js?v=20260825-1" defer></script>
+  <script src="js/app.js?v=20260825-3" defer></script>
 </body>
 </html>

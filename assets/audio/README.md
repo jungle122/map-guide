@@ -1,7 +1,23 @@
-# 测试音频
+# 童谣音频
 
-首批正式童谣音频：`yueguangguang.mp3`、`dangdangzhuan.mp3`、`qiqiwangguoqu.mp3`。文件由团队素材目录复制并规范化命名，未改动原文件。
+童谣景点详情页使用的音频文件：
 
-来源：<https://developer.mozilla.org/shared-assets/audio/t-rex-roar.mp3>
+| 文件 | 对应景点 | 童谣 |
+| --- | --- | --- |
+| `yueguangguang.mp3` | 石狮脚（何诒燕堂码头） | 月光光，照地堂 |
+| `dangdangzhuan.mp3` | 黄连龙虱馆；天后宫、先蠺庙 | 氹氹转 |
+| `qiqiwangguoqu.mp3` | 鸡鸭巷 | 齐齐望过去 |
+| `paipazuo.mp3` | 藩侯何公祠 | 排排坐 |
+| `aoxin-heshi-ancestral-hall.mp3` | 澳心何氏先祠 | 地点童谣音频 |
+| `cangju-temple.mp3` | 仓沮圣庙 | 地点童谣音频 |
+| `lianji-park.mp3` | 连济公园 | 地点童谣音频 |
+| `nanpu-he-ancestral-hall.mp3` | 南圃何公祠 | 地点童谣音频 |
+| `shiguici-park.mp3` | 石龟祠公园 | 地点童谣音频 |
+| `waterfront-park.mp3` | 滨水公园 | 地点童谣音频 |
+| `xuepu-school.mp3` | 雪圃学校 | 地点童谣音频 |
 
-正式音频请使用 MP3，并在替换前完成响度和文件大小检查。
+现有文件均由团队素材目录复制并规范化命名，原始文件未改动。
+
+播放策略：用户点击 `查看介绍` 进入弹层后，童谣音频会**自动开始播放**；同时弹层内的视频默认不自动播放，避免声音叠加。如需静音或重新播放，可使用控件。若浏览器自动播放策略被系统拦截，会静默忽略，由用户手动点播放。
+
+各文件路径集中配置在 `js/spots/` 的地点数据中。音频统一使用 MP3；新增或替换前需检查文件完整性、响度和浏览器播放兼容性。

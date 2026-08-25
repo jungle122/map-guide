@@ -10,20 +10,19 @@
     var currentSpot = null;
     var currentTrigger = null;
 
-    function hasCoordinates(spot) {
-      return Number.isFinite(spot.longitude) && Number.isFinite(spot.latitude);
-    }
-
     function open(spot, trigger) {
       currentSpot = spot;
       currentTrigger = trigger || document.activeElement;
-      navigationButton.classList.toggle("has-no-coordinate", !hasCoordinates(spot));
+      navigationButton.classList.toggle("has-no-coordinate", !window.AppUtils.hasCoordinates(spot));
 
-      // 设置卡通图标：从 SPOT_ICONS 映射表取对应图标
-      if (window.SPOT_ICONS && window.SPOT_ICONS[spot.id]) {
-        icon.src = window.SPOT_ICONS[spot.id];
+      // 设置卡通图标：从共享地图配置取对应图标。
+      var iconSrc = window.MapConfig.spotIcons[spot.id];
+      card.classList.toggle("has-icon", Boolean(iconSrc));
+      if (iconSrc) {
+        icon.src = iconSrc;
         icon.hidden = false;
       } else {
+        icon.removeAttribute("src");
         icon.hidden = true;
       }
 
