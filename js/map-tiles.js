@@ -1,25 +1,15 @@
 (function () {
   "use strict";
 
-  var LegacyMapModule = window.MapModule;
-  var params = new URLSearchParams(window.location.search);
-  if (params.get("map") === "legacy" || !window.OpenSeadragon || !LegacyMapModule) return;
+  if (!window.OpenSeadragon) return;
 
-  var MAP_WIDTH = 8091;
-  var MAP_HEIGHT = 5669;
-  var INITIAL_FOCUS = { x: 0.45, y: 0.45 };
-  var TILE_SOURCE = "assets/map/tiles/v3/huanglian.dzi";
-  var SPOT_ICONS = {
-    "longshi": "assets/icons/longshi.jpg",
-    "jiyaxiang": "assets/icons/jiyaxiang.jpg",
-    "shishijiao": "assets/icons/shishijiao.jpg",
-    "tianhou-xiancan": "assets/icons/tianhou-xiancan.jpg",
-    "fanhou-geci": "assets/icons/fanhou-geci.jpg",
-    "lianjiqiao": "assets/icons/lianjiqiao.jpg"
-  };
-  window.SPOT_ICONS = SPOT_ICONS;
+  var MAP_WIDTH = window.MapConfig.width;
+  var MAP_HEIGHT = window.MapConfig.height;
+  var INITIAL_FOCUS = window.MapConfig.initialFocus;
+  var TILE_SOURCE = window.MapConfig.tileSource;
 
-  function init(spots) {
+  function init(spots, options) {
+    var settings = options || {};
     var host = document.getElementById("mapViewport");
     var viewerElement = document.getElementById("mapViewer");
     var canvas = document.getElementById("mapCanvas");
@@ -53,51 +43,13 @@
     function createHotspot(spot) {
       var existing = anchors.find(function (item) { return item.dataset.spotId === spot.id; });
       if (existing) return existing;
-      var anchor = document.createElement("div");
-      anchor.className = "hotspot-anchor";
-      if (spot.isTemporary) anchor.classList.add("is-temporary");
-      if (spot.isSecondary) anchor.classList.add("is-secondary");
-      anchor.dataset.spotId = spot.id;
-      anchor.dataset.x = spot.x;
-      anchor.dataset.y = spot.y;
-
-      var marker = document.createElement("button");
-      marker.type = "button";
-      marker.className = "hotspot";
-      marker.setAttribute("aria-label", "查看" + spot.name);
-
-      var iconSrc = SPOT_ICONS[spot.id];
-      if (iconSrc) {
-        var iconImg = document.createElement("img");
-        iconImg.className = "hotspot-icon";
-        iconImg.src = iconSrc;
-        iconImg.alt = spot.name;
-        iconImg.draggable = false;
-        marker.appendChild(iconImg);
-        marker.classList.add("has-icon");
-      }
-
-      var label = document.createElement("span");
-      label.className = "hotspot-label" + (iconSrc ? " has-icon" : "");
-      label.textContent = spot.name;
-      label.dataset.spotId = spot.id;
-      label.setAttribute("aria-hidden", "true");
-
-      marker.addEventListener("click", function (event) {
-        if (anchor.dataset.wasDragged === "true") {
-          anchor.dataset.wasDragged = "false";
-          return;
+      var anchor = window.HotspotView.create(spot, {
+        onActivate: settings.onSpotActivate,
+        onPointerDown: function (event) {
+          lastHotspotInteraction = window.performance.now();
+          if (!annotating) event.stopPropagation();
         }
-        if (spot.isSecondary) window.SpotModal.open(spot, event.currentTarget);
-        else window.SpotCard.open(spot, event.currentTarget);
       });
-      marker.addEventListener("pointerdown", function (event) {
-        lastHotspotInteraction = window.performance.now();
-        if (!annotating) event.stopPropagation();
-      });
-
-      anchor.appendChild(marker);
-      anchor.appendChild(label);
       hotspotLayer.appendChild(anchor);
       anchors.push(anchor);
       if (tiledImage) {
@@ -259,7 +211,7 @@
         return;
       }
       if (event.quick && !annotating && !justUsedHotspot && !event.originalEvent.target.closest(".hotspot")) {
-        window.SpotCard.close();
+        if (settings.onBackgroundActivate) settings.onBackgroundActivate();
       }
     });
 
@@ -334,5 +286,6 @@
     };
   }
 
-  window.MapModule = { init: init };
+  window.MapEngines = window.MapEngines || {};
+  window.MapEngines.tiled = { init: init };
 })();

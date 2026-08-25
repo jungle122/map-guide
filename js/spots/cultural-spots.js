@@ -5,29 +5,96 @@
     {
       id: "village-history-museum",
       mapNumber: "文化",
-      name: "黄连村史馆",
+      name: "村史馆",
       x: 49.88,
       y: 79.39,
+      longitude: 113.149365,
+      latitude: 22.884681,
+      navName: "黄连村史馆",
+      coordType: "GCJ-02",
+      amapShareUrl: "https://surl.amap.com/1avPHrc1mfBQ",
+      navigationMode: "walk",
       isSecondary: true,
-      description: "黄连村史馆是黄连推进美丽文明村居建设、古村落活化的重要项目之一，对原华天宝药厂办公大楼进行活化提升改造为黄连村史馆，建设包括：展馆改造、外墙加固翻新、夜景灯光照明等。占地面积约320平方米，以岭南水乡建筑风格为特点，馆内以黄连史地沿革、历任领导、经济史话、宗族构成、文物建筑、英才辈出、民俗风情、非遗项目等十大板块展示千年人文故里黄连在各个发展时期的精神风貌、历史贡献和作用发挥。\n\n黄连村史馆以其独特的地理位置和“接地气”的建筑“外表”，成为旅客游览黄连的必到“打卡点”。"
+      description: "黄连村史馆是黄连推进美丽文明村居建设、古村落活化的重要项目之一，对原华天宝药厂办公大楼进行活化提升改造为黄连村史馆，建设包括：展馆改造、外墙加固翻新、夜景灯光照明等。占地面积约320平方米，以岭南水乡建筑风格为特点，馆内以黄连史地沿革、历任领导、经济史话、宗族构成、文物建筑、英才辈出、民俗风情、非遗项目等十大板块展示千年人文故里黄连在各个发展时期的精神风貌、历史贡献和作用发挥。\n\n黄连村史馆以其独特的地理位置和“接地气”的建筑“外表”，成为旅客游览黄连的必到“打卡点”。",
+      images: [
+        "assets/images/village-history-museum/01.png",
+        "assets/images/village-history-museum/02.jpg",
+        "assets/images/village-history-museum/03.jpg",
+        "assets/images/village-history-museum/04.jpg",
+        "assets/images/village-history-museum/05.png"
+      ]
+    },
+    {
+      id: "artist-village",
+      mapNumber: "文化",
+      name: "画家艺术村",
+      x: 51.71,
+      y: 56.69,
+      longitude: 113.149793,
+      latitude: 22.886762,
+      navName: "黄连画家艺术村",
+      coordType: "GCJ-02",
+      amapShareUrl: "https://surl.amap.com/bCXt7k211c68",
+      navigationMode: "walk",
+      isSecondary: true,
+      description: "黄连画家艺术村位于澳心街，由黄连小学旧址活化改造而成。2017年12月正式开村后，旧校舍被改造为艺术创作、展览和教育空间，引入驻场艺术家、创作驿站，并持续开展书画展览、艺术讲座和教育活动，成为黄连保护利用旧建筑、振兴传统文化的重要节点。村内还设有艺书吧，为阅读、文化沙龙和公共艺术交流提供空间。",
+      images: [
+        "assets/images/artist-village/01.png",
+        "assets/images/artist-village/02.jpg",
+        "assets/images/artist-village/03.jpg",
+        "assets/images/artist-village/04.jpg",
+        "assets/images/artist-village/05.jpg",
+        "assets/images/artist-village/06.jpg"
+      ]
     },
     {
       id: "xuepu-school",
-      mapNumber: "文化",
+      mapNumber: 9,
       name: "雪圃学校",
+      song: "卖懒",
       x: 35.32,
       y: 71.89,
-      isSecondary: true,
-      description: "雪圃学校为上世纪30年代的建筑，是南京中央陆军军官学校毕业的何雪圃所建造的贵族学校。雪圃为字，名为隆章，他在十六师师长邓彦华部任三十一团上校团长。雪圃学校起初为何雪圃和妻子刘淑德（当时黄连的最大豪强之一，人称十二姑，同为军校毕业）的私人住宅，后因他们重视当地文化教育，就把居住地设为学校。\n\n雪圃学校为青砖和木质建筑，正门为麻石框结构，门为朱红色木质门。正门门牌为粗麻石，刻着两个金色大字“雪圃”。学校内为两座糅和了中西建筑特色的主体楼，同为三层，面向正门的主楼楼顶为典型中式结构，正门右边的主楼楼顶为欧式结构，地面满铺青石板。两座主楼前种有白玉兰树，现已高过两座主楼。据悉该白玉兰树种植的时期同为雪圃学校初建时期。改革开放初期为雪圃学校作为学校的最后时期，为黄连小学。\n\n2015年曾活化为黄连社区大学、罗俊卿独龙针非遗传承工作室。"
+      longitude: 113.148100,
+      latitude: 22.885300,
+      navName: "雪圃学校",
+      coordType: "GCJ-02",
+      tencentShareUrl: "https://map.qq.com/?addr=%5B%E4%BD%8D%E7%BD%AE%5D&isopeninfowin=1&markertype=1&name=%E9%9B%AA%E5%9C%83%E5%AD%A6%E6%A0%A1&pointx=113.148100&pointy=22.885300&ref=WeChat&type=marker",
+      navigationMode: "walk",
+      description: "雪圃学校是黄连旧时的新式学堂，青砖老屋承载一代代读书仔的回忆。广府年俗有“卖懒”的习俗，年三十晚上，小朋友提着小灯笼，走过街巷学堂，唱着歌谣把“懒惰”卖掉，祈求新一年勤力读书、快快长大。",
+      additionalInfo: "雪圃学校为上世纪30年代的建筑，是南京中央陆军军官学校毕业的何雪圃所建造的贵族学校。何隆章，字雪圃，他在十六师师长邓彦华部任三十一团上校团长。雪圃学校起初为何雪圃和妻子刘潞德（当时黄连的最大豪强之一，人称十二姑，同为军校毕业）的私人住宅，后因他们重视当地文化教育，将住宅改设为学校。\n\n雪圃学校为青砖和木质建筑，正门为麻石框结构，门为朱红色木质门。正门门牌为粗麻石，刻着两个金色大字“雪圃”。学校内为两座糅合了中西建筑特色的主体楼，同为三层，面向正门的主楼楼顶为典型中式结构，正门右边的主楼楼顶为欧式结构，地面满铺青石板。两座主楼前种有白玉兰树，现已高过两座主楼。据悉，白玉兰树与雪圃学校同期栽种。改革开放初期是雪圃学校作为学校使用的最后时期，当时为黄连小学。\n\n2015年曾活化为黄连社区大学、罗俊卿独龙针非遗传承工作室。",
+      images: [
+        "assets/images/xuepu-school/01.jpg",
+        "assets/images/xuepu-school/02.jpg",
+        "assets/images/xuepu-school/03.jpg",
+        "assets/images/xuepu-school/04.jpg",
+        "assets/images/xuepu-school/05.jpg"
+      ],
+      audio: "assets/audio/xuepu-school.mp3",
+      video: "assets/video/xuepu-school.mp4"
     },
     {
       id: "shiguici-fu-tombstone",
-      mapNumber: "文化",
-      name: "石龟祠公园·傅氏墓碑",
+      mapNumber: 3,
+      name: "石龟祠公园",
+      song: "香蕉船",
       x: 25.37,
       y: 33.56,
-      isSecondary: true,
-      description: "太监傅容先茔，位于黄连基头。墓为半月型，建于平地上，墓碑篆额“傅氏先茔之记”为李东阳手笔；墓地附近另有“谕祭碑”，是明朝皇帝命官吏致祭后所立的，碑下用“赑屃”承托全碑。该墓是傅容为他父母合葬营造的。\n\n由广东布政使司左参政翁建之代表皇上，向傅容父母祭奠，时间是正德二年（1507年）。广孝桥碑和傅氏等各碑，均存黄连乡黄岸基并均为佛山市重点文物保护单位。\n\n傅容，明代弘治司礼监秉笔太监（内侍臣中最高官职）。"
+      longitude: 113.146532,
+      latitude: 22.889755,
+      navName: "黄连石龟公园",
+      coordType: "GCJ-02",
+      amapShareUrl: "https://surl.amap.com/bUIrfjw1hg2A",
+      navigationMode: "walk",
+      description: "石龟公园草坪开阔，孩童喜欢在此坐卧玩耍，仰望天上云朵放飞想象，开开心心齐唱：香蕉变出香蕉船，船上面有一排欢笑面，多可爱多康健，齐齐共唱歌谣听不厌。",
+      additionalInfo: "傅氏墓碑位于黄连基尾石龟一巷，为明弘治年间司礼监太监傅容父母合葬墓所立，包括《傅氏先茔之记》碑和谕祭碑。谕祭碑记载广东布政使司左参政翁健之代表皇帝祭奠傅容父母。傅氏墓碑与广孝桥、广孝桥碑形成完整的研究体系，为佛山市文物保护单位。",
+      images: [
+        "assets/images/shiguici-park/01.jpg",
+        "assets/images/shiguici-park/02.jpg",
+        "assets/images/shiguici-park/03.jpg",
+        "assets/images/shiguici-park/04.jpg"
+      ],
+      audio: "assets/audio/shiguici-park.mp3",
+      video: "assets/video/shiguici-park.mp4"
     },
     {
       id: "visitor-industrial-park",
@@ -35,35 +102,130 @@
       name: "游客服务中心／工业遗址公园",
       x: 38.83,
       y: 84.37,
+      longitude: 113.148189,
+      latitude: 22.884402,
+      navName: "黄连古村游客服务中心",
+      coordType: "GCJ-02",
+      amapShareUrl: "https://surl.amap.com/bXLuuh8W6Uq",
+      navigationMode: "walk",
       isSecondary: true,
-      description: "工业遗址公园由原华天宝药厂、西荣炭铺等数间代表黄连工业水平的旧工厂活化而成，区内主要为红砖建筑，每一栋红砖建筑都有一段沉睡的历史，经过岁月的沉淀和历史生化，百废待兴。公园设计保留了原有特色建筑元素，在原空间机理上，拆除部分旧建筑，拓宽园林景观空间，建设具有历史特色的社区公园。通过修缮、活化、还原，游客可以真实地了解到黄连社区当时的工业化程度，在村史馆游览基础上跟进一步了解黄连工业文化。目前已在园区内打造黄连古村游客服务中心，内有书吧、咖啡等配套设施。"
+      description: "工业遗址公园由原华天宝药厂、西荣炭铺等数间代表黄连工业水平的旧工厂活化而成，区内主要为红砖建筑，每一栋红砖建筑都承载着一段工业历史。公园设计保留了原有特色建筑元素，在原空间肌理基础上，拆除部分旧建筑，拓宽园林景观空间，建设具有历史特色的社区公园。通过修缮、活化、还原，游客可以真实了解黄连社区当时的工业化程度，在游览村史馆的基础上更进一步了解黄连工业文化。目前已在园区内打造黄连古村游客服务中心，内有书吧、咖啡等配套设施。",
+      images: [
+        "assets/images/visitor-industrial-park/01.jpg",
+        "assets/images/visitor-industrial-park/02.jpg",
+        "assets/images/visitor-industrial-park/03.jpg",
+        "assets/images/visitor-industrial-park/04.jpg",
+        "assets/images/visitor-industrial-park/05.jpg",
+        "assets/images/visitor-industrial-park/06.jpg",
+        "assets/images/visitor-industrial-park/07.jpg",
+        "assets/images/visitor-industrial-park/08.jpg",
+        "assets/images/visitor-industrial-park/09.png",
+        "assets/images/visitor-industrial-park/10.png"
+      ]
     },
     {
       id: "aoxin-heshi-ancestral-hall",
-      mapNumber: "文化",
+      mapNumber: 13,
       name: "澳心何氏先祠",
+      song: "何家公鸡何家猜",
       x: 52.55,
       y: 66.12,
-      isSecondary: true,
-      description: "何氏先祠是何氏的后代集资重建的具有浓厚岭南宗祠风格的建筑。修葺一新的何氏先祠不论是园林的完整性还是雕梁画栋都是在黄连最具代表性的，原后花园两旁遍植桂花树，桂花开放，一派芬芳，后人随之以桂花祠名之。正门瓦脊上之灰塑山水人物工艺精湛，栩栩如生。祠堂望之庄严伟岸，摄人心魄。\n\n澳心何氏先祠活化为家庭综合服务中心，内有周潮宗纪念图书馆、书法协会培训室，旁有扫黄打非进基层工作站、曾剑琴、曾剑仓粤绣（广绣）工作室、养老服务中心。"
+      longitude: 113.149585,
+      latitude: 22.886131,
+      navName: "澳心何氏先祠",
+      coordType: "GCJ-02",
+      amapShareUrl: "https://surl.amap.com/bXtBVMOU50X",
+      navigationMode: "walk",
+      description: "澳心何氏先祠是黄连规模宏大的宗族祠堂，门前宽阔的大石晒坪空间开阔。逢年过节，祠堂热热闹闹，村中小孩全部跑到晒坪上，成群结队玩猜谜、追逐嬉戏，你一言我一语玩起猜公鸡的趣味游戏。",
+      additionalInfo: "澳心何氏先祠位于黄连澳心街8号，建筑年代不详，具有清代建筑风格，现存头门。2013年，祠堂活化为“港湾之家”综合服务中心，周潮宗纪念图书馆等公共文化和社区服务设施进驻其中。祠堂周边还设有曾剑琴、曾剑仑广绣工作室等文化服务空间。",
+      images: [
+        "assets/images/aoxin-heshi-ancestral-hall/01.png",
+        "assets/images/aoxin-heshi-ancestral-hall/02.jpg",
+        "assets/images/aoxin-heshi-ancestral-hall/03.jpg"
+      ],
+      audio: "assets/audio/aoxin-heshi-ancestral-hall.mp3",
+      video: "assets/video/aoxin-heshi-ancestral-hall.mp4"
     },
     {
       id: "cangju-temple",
-      mapNumber: "文化",
+      mapNumber: 17,
       name: "仓沮圣庙",
+      song: "鸡公仔，尾弯弯",
       x: 37.69,
       y: 54.10,
-      isSecondary: true,
-      description: "黄连社学大街，有一座建于清代光绪元年（1875），目前顺德范围内唯一一间保留得最完整的为纪念我国文字始祖“仓颉”而建的仓沮圣庙（俗称字祖庙）。\n\n仓就是仓颉；沮就是沮诵。相传二人同为黄帝史官，一道作书，故自古以来被民间同称为“字祖”。\n\n小孩读书启蒙时，父母都会带他们在字祖庙举行“开笔礼”，祈求地方文脉连绵，学童聪明卓异，至今古风仍存。作为珠江三角洲留存下来所见不多的字祖庙，黄连字祖庙具有多元的文化意义：它在延续传统文化中自觉承传着对先人智慧的敬畏；在言传身教中递送着文化的香火；更在当代的文化建设中融合现代元素，呈现出兼容并进的特色。"
+      longitude: 113.148234,
+      latitude: 22.887067,
+      navName: "黄连仓沮圣庙",
+      coordType: "GCJ-02",
+      amapShareUrl: "https://surl.amap.com/bYXopmm1e35N",
+      navigationMode: "walk",
+      description: "仓沮圣庙是黄连的字祖庙宇，不少小朋友在这里举行开笔礼，开启读书识字的旅程。长辈借此勉励孩童勤学上进，唱起粤语童谣：鸡公仔，尾弯弯，做人点可以怕艰难，清早起床返学去，执齐书本上学堂，古庙里回荡着蒙童朗朗的歌声。",
+      additionalInfo: "仓沮圣庙俗称“字祖庙”，位于黄连祖庙大街2号，清光绪元年（1875年）创建，2008年重修。该庙是顺德少见的纪念仓颉、沮诵作字之功的庙宇。\n\n相传仓颉、沮诵同为黄帝史官，共同创制文字，后世将二人同称为“字祖”。黄连延续着在字祖庙举行开笔礼的传统，寄托着崇文重教、祈愿学童勤学上进的美好愿望。",
+      images: [
+        "assets/images/cangju-temple/01.jpg",
+        "assets/images/cangju-temple/02.jpg",
+        "assets/images/cangju-temple/03.jpg",
+        "assets/images/cangju-temple/04.jpg",
+        "assets/images/cangju-temple/05.jpg",
+        "assets/images/cangju-temple/06.jpg",
+        "assets/images/cangju-temple/07.jpg"
+      ],
+      audio: "assets/audio/cangju-temple.mp3",
+      video: "assets/video/cangju-temple.mp4"
     },
     {
       id: "waterfront-park",
-      mapNumber: "文化",
+      mapNumber: 5,
       name: "滨水公园",
+      song: "洗白白",
       x: 68.04,
       y: 7.71,
-      isSecondary: true,
-      description: "黄连滨水公园是黄连社区美丽文明村居建设、古村落活化的项目，投入过千万，其中其昌码头曾经是黄连最大的码头，是当地村民来往广州的重要交通枢纽。在水路交通年代，黄连人在其昌码头搭乘接驳艇，登上红星渡船，到广州做买卖。其昌码头是黄连早期经济发展的历史见证，也是老一辈黄连人珍贵的回忆。现在，黄连社区以滨水公园的凉亭为载体，展示其昌码头这一历史印记，该公园也成为居民群众休闲散步的心仪之地。"
+      longitude: 113.151533,
+      latitude: 22.893821,
+      navName: "黄连滨水公园",
+      coordType: "GCJ-02",
+      amapShareUrl: "https://surl.amap.com/bZclHyu1a29t",
+      navigationMode: "walk",
+      description: "滨水公园紧挨黄连河涌，拥有亲水平台。夏日孩童在此玩水嬉戏，大人借着河水帮孩子擦洗，唱起童谣：洗白白，洗白白，倒开盆水嚟冲凉，洗干干净净唔怕生病，身体健康妈妈心花放。",
+      additionalInfo: "黄连滨水公园是黄连社区美丽文明村居建设、古村落活化的项目，投入过千万。其昌码头曾经是黄连最大的码头，是当地村民来往广州的重要交通枢纽。在水路交通年代，黄连人在其昌码头搭乘接驳艇，登上红星渡船，到广州做买卖。其昌码头是黄连早期经济发展的历史见证，也是老一辈黄连人珍贵的回忆。现在，黄连社区以滨水公园的凉亭为载体，展示其昌码头这一历史印记，该公园也成为居民群众休闲散步的心仪之地。",
+      images: [
+        "assets/images/waterfront-park/01.jpg",
+        "assets/images/waterfront-park/02.jpg",
+        "assets/images/waterfront-park/03.jpg",
+        "assets/images/waterfront-park/04.jpg",
+        "assets/images/waterfront-park/05.jpg",
+        "assets/images/waterfront-park/06.jpg",
+        "assets/images/waterfront-park/07.jpg",
+        "assets/images/waterfront-park/08.jpg",
+        "assets/images/waterfront-park/09.jpg",
+        "assets/images/waterfront-park/10.jpg"
+      ],
+      audio: "assets/audio/waterfront-park.mp3",
+      video: "assets/video/waterfront-park.mp4"
+    },
+    {
+      id: "nanpu-he-ancestral-hall",
+      mapNumber: 11,
+      name: "南圃何公祠",
+      song: "摇啊摇，摇到外婆桥",
+      x: 46.47,
+      y: 65.87,
+      longitude: 113.148836,
+      latitude: 22.885778,
+      navName: "南圃何公祠",
+      coordType: "GCJ-02",
+      amapShareUrl: "https://surl.amap.com/c1gI3RY1aiI",
+      navigationMode: "walk",
+      description: "南圃何公祠，是何氏族人团聚的老祠堂。祭祖时节，乡亲纷纷归来，不少小朋友跟着长辈回乡。祠堂地堂热热闹闹，孩童念起童谣：摇啊摇，摇到外婆桥，外婆话我好宝宝，糖一包，果一包，又有糍粑又有糕。",
+      images: [
+        "assets/images/nanpu-he-ancestral-hall/01.jpg",
+        "assets/images/nanpu-he-ancestral-hall/02.jpg",
+        "assets/images/nanpu-he-ancestral-hall/03.jpg",
+        "assets/images/nanpu-he-ancestral-hall/04.jpg",
+        "assets/images/nanpu-he-ancestral-hall/05.jpg"
+      ],
+      audio: "assets/audio/nanpu-he-ancestral-hall.mp3",
+      video: "assets/video/nanpu-he-ancestral-hall.mp4"
     },
     {
       id: "heshi-old-house",
@@ -71,8 +233,25 @@
       name: "何氏古屋",
       x: 43.18,
       y: 41.66,
+      longitude: 113.148598,
+      latitude: 22.888070,
+      navName: "年丰",
+      coordType: "GCJ-02",
+      amapShareUrl: "https://surl.amap.com/cK5vjC619PN",
+      navigationMode: "walk",
       isSecondary: true,
-      description: "何氏古屋由园林景观、景门、壁照、镬耳墙、漏窗、凉亭等传统岭南建筑及园林小品构成，不但突出运用西方建筑元素，更是把中国的传统园林材质与哲学无间匹配地融合在一起。\n\n以何氏古屋作为代表的黄连古建筑在黄连随处可见：如镬耳墙呈锅耳形，讲究对称，起伏三级，象征古代的官帽，取意前程远大，是古代官宦世家追求达官显赫的象征。\n\n何氏古屋现修缮改造为黄连社区颇有知名度的私房菜餐馆——年丰楼。"
+      description: "何氏古屋由园林景观、景门、照壁、镬耳墙、漏窗、凉亭等传统岭南建筑及园林小品构成，不但突出运用西方建筑元素，还将中国传统园林的材质与哲学理念有机融合在一起。\n\n以何氏古屋作为代表的黄连古建筑在黄连随处可见：如镬耳墙呈锅耳形，讲究对称，起伏三级，象征古代的官帽，取意前程远大，是古代官宦世家追求达官显赫的象征。\n\n何氏古屋现修缮改造为黄连社区颇有知名度的私房菜餐馆——年丰楼。",
+      images: [
+        "assets/images/heshi-old-house/01.jpg",
+        "assets/images/heshi-old-house/02.jpg",
+        "assets/images/heshi-old-house/03.jpg",
+        "assets/images/heshi-old-house/04.jpg",
+        "assets/images/heshi-old-house/05.jpg",
+        "assets/images/heshi-old-house/06.jpg",
+        "assets/images/heshi-old-house/07.jpg",
+        "assets/images/heshi-old-house/08.jpg",
+        "assets/images/heshi-old-house/09.jpg"
+      ]
     },
     {
       id: "jingsou-liang-ancestral-hall",
@@ -81,7 +260,18 @@
       x: 63.79,
       y: 36.89,
       isSecondary: true,
-      description: "静叟梁公祠，位于顺德勒流黄连北头，始建于1483年（明宪宗成化19年）。这座有着538年历史的祠堂为顺德范围内颇具特色的祠堂。\n\n静叟梁公祠三进深，顶部为镬耳造型（镬耳建筑具“独占鳌头”与富贵之意），保留五大面蚝壳墙，蚝壳墙均从底部直冲到顶部的镬耳范围内。该祠堂在北头族人的重视与合力之下，于2011年重修。\n\n它见证着该族人的宋朝始祖的后裔到黄连生生不息的传奇历史。静叟梁公祠根之源为汴梁（现在的河南开封），汴梁作为七大古都之一，因宋末时受到外族入侵，在此的贵族达官纷纷南下迁徙。后为岭南招讨使的汴梁人梁起眼看宋朝受元人入侵，果断纠率义兵，赴马南宝麾下为副帅，会同制置使黎德合兵二十万力战，势孤兵败，于是梁起隐于现在的顺德逢简。而梁起的后代，即其孙梁宗玉在元末娶黄连的关敏之妹为妻，从此从逢简迁居于黄连北头。"
+      description: "静叟梁公祠，位于顺德勒流黄连北头，始建于1483年（明宪宗成化十九年），已有五百多年历史，是顺德范围内颇具特色的祠堂。\n\n静叟梁公祠三进深，顶部为镬耳造型（镬耳建筑具“独占鳌头”与富贵之意），保留五大面蚝壳墙，蚝壳墙均从底部直冲到顶部的镬耳范围内。该祠堂在北头族人的重视与合力之下，于2011年重修。\n\n它见证着该族人的宋朝始祖的后裔到黄连生生不息的传奇历史。静叟梁公祠根之源为汴梁（现在的河南开封），汴梁作为七大古都之一，因宋末时受到外族入侵，在此的贵族达官纷纷南下迁徙。后为岭南招讨使的汴梁人梁起眼看宋朝受元人入侵，果断纠集义兵，赴马南宝麾下为副帅，会同制置使黎德合兵二十万力战，势绌兵败，于是梁起隐于现在的顺德逢简。而梁起的后代，即其孙梁宗玉在元末娶黄连的关敏之妹为妻，此后从逢简迁居于黄连北头。",
+      images: [
+        "assets/images/jingsou-liang-ancestral-hall/01.jpg",
+        "assets/images/jingsou-liang-ancestral-hall/02.jpg",
+        "assets/images/jingsou-liang-ancestral-hall/03.png",
+        "assets/images/jingsou-liang-ancestral-hall/04.png",
+        "assets/images/jingsou-liang-ancestral-hall/05.png",
+        "assets/images/jingsou-liang-ancestral-hall/06.png",
+        "assets/images/jingsou-liang-ancestral-hall/07.png",
+        "assets/images/jingsou-liang-ancestral-hall/08.png",
+        "assets/images/jingsou-liang-ancestral-hall/09.png"
+      ]
     }
   ].forEach(window.registerSpot);
 })();

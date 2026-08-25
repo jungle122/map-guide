@@ -1,19 +1,6 @@
 (function () {
   "use strict";
 
-  function copyText(text) {
-    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
-    var input = document.createElement("textarea");
-    input.value = text;
-    input.style.position = "fixed";
-    input.style.opacity = "0";
-    document.body.appendChild(input);
-    input.select();
-    var successful = document.execCommand("copy");
-    input.remove();
-    return successful ? Promise.resolve() : Promise.reject(new Error("copy failed"));
-  }
-
   function init(mapApi, spots) {
     var toggle = document.getElementById("toggleAnnotator");
     var closeButton = document.getElementById("closeAnnotator");
@@ -319,7 +306,7 @@
       var spot = currentSpot();
       if (!spot) return;
       var text = "x: " + positions[spot.id].x.toFixed(2) + ", y: " + positions[spot.id].y.toFixed(2);
-      copyText(text).then(function () {
+      window.AppUtils.copyText(text).then(function () {
         setStatus("“" + spot.name + "”坐标已复制。");
       }).catch(function () {
         setStatus("复制失败，请手动记录坐标。");
@@ -331,7 +318,7 @@
         var point = positions[spot.id];
         return spot.name + ": { x: " + point.x.toFixed(2) + ", y: " + point.y.toFixed(2) + " }";
       }).join("\n");
-      copyText(text).then(function () {
+      window.AppUtils.copyText(text).then(function () {
         setStatus(activeSpots.length + "个点位坐标已全部复制。");
       }).catch(function () {
         setStatus("复制失败，请逐项记录坐标。");

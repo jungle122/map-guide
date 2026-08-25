@@ -23,6 +23,7 @@
         var routeId = card.dataset.routeId;
         var route = window.TOUR_ROUTES[routeId];
         if (!route) return;
+        window.SpotCard.close();
         window.RouteLayer.render(route);
         closeSheet();
       });

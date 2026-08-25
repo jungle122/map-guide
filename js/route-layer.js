@@ -2,13 +2,13 @@
   "use strict";
 
   var NS = "http://www.w3.org/2000/svg";
-  var MAP_WIDTH = 8091;
-  var MAP_HEIGHT = 5669;
+  var MAP_WIDTH = window.MapConfig.width;
+  var MAP_HEIGHT = window.MapConfig.height;
   var routeLayer = null;
-  var activeRouteId = null;
-  var activeStopMarkers = [];
 
   function getOrCreateLayer() {
+    if (routeLayer) return routeLayer;
+    routeLayer = document.getElementById("routeLayer");
     if (routeLayer) return routeLayer;
     routeLayer = document.createElement("div");
     routeLayer.id = "routeLayer";
@@ -44,9 +44,7 @@
   function renderRoute(route) {
     clearRoute();
     var layer = getOrCreateLayer();
-    activeRouteId = route.id;
     document.body.classList.add("route-active");
-    if (window.SpotCard) window.SpotCard.close();
 
     var svg = document.createElementNS(NS, "svg");
     svg.setAttribute("width", "100%");
@@ -132,14 +130,11 @@
       g.appendChild(title);
     });
 
-    activeStopMarkers = route.stops.slice();
     updateStatusPill(route);
     if (window.RouteWalker) window.RouteWalker.start(route);
   }
 
   function clearRoute() {
-    activeRouteId = null;
-    activeStopMarkers = [];
     document.body.classList.remove("route-active");
     if (window.RouteWalker) window.RouteWalker.stop();
     if (routeLayer) routeLayer.innerHTML = "";
@@ -158,18 +153,8 @@
     }
   }
 
-  function isActive(routeId) {
-    return activeRouteId === routeId;
-  }
-
-  function getActiveRoute() {
-    return activeRouteId;
-  }
-
   window.RouteLayer = {
     render: renderRoute,
-    clear: clearRoute,
-    isActive: isActive,
-    getActiveRoute: getActiveRoute
+    clear: clearRoute
   };
 })();
