@@ -65,6 +65,11 @@ body.route-active .hotspot-anchor {
   opacity: 0;
 }
 
+body.route-sheet-open .route-hideable-control,
+body.route-active .route-hideable-control {
+  display: none;
+}
+
 /* 路线入口：固定在标题栏下方 */
 .route-entry-bar {
   position: fixed;
