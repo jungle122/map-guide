@@ -9,8 +9,26 @@
     window.RouteEntryModule.init();
     var debugMode = new URLSearchParams(window.location.search).get("debug") === "1";
     var tileFallback = new URLSearchParams(window.location.search).get("fallback") === "tiles";
+    var forceLegacyMap = new URLSearchParams(window.location.search).get("map") === "legacy";
     document.getElementById("toggleAnnotator").hidden = !debugMode;
-    var mapApi = window.MapModule.init(window.SPOT_DATA);
+
+    function openSpot(spot, trigger) {
+      if (spot.openMode === "detail") {
+        window.SpotCard.close();
+        window.SpotModal.open(spot, trigger);
+      } else {
+        window.SpotCard.open(spot, trigger);
+      }
+    }
+
+    var mapEngine = !forceLegacyMap && window.MapEngines.tiled
+      ? window.MapEngines.tiled
+      : window.MapEngines.legacy;
+    var mapApi = mapEngine.init(window.SPOT_DATA, {
+      onSpotActivate: openSpot,
+      onBackgroundActivate: window.SpotCard.close
+    });
+    window.HotspotVisibilityModule.init(mapApi);
     window.AnnotatorModule.init(mapApi, window.SPOT_DATA);
     if (tileFallback) {
       var mapLoadStatus = document.getElementById("mapLoadStatus");
