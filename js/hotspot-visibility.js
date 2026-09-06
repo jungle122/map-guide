@@ -4,8 +4,11 @@
   function init(mapApi) {
     var button = document.getElementById("toggleHotspots");
     var label = document.getElementById("toggleHotspotsLabel");
+    var namesButton = document.getElementById("toggleHotspotNames");
+    var namesLabel = document.getElementById("toggleHotspotNamesLabel");
     var viewport = mapApi && mapApi.viewport;
     var hidden = false;
+    var namesVisible = false;
 
     function update(nextHidden) {
       hidden = Boolean(nextHidden);
@@ -21,10 +24,26 @@
       update(!hidden);
     });
 
+    function updateNames(nextVisible) {
+      namesVisible = Boolean(nextVisible);
+      viewport.classList.toggle("are-hotspot-names-visible", namesVisible);
+      namesButton.setAttribute("aria-pressed", String(namesVisible));
+      namesButton.setAttribute("aria-label", namesVisible ? "隐藏地图景点名称" : "显示地图景点名称");
+      namesButton.title = namesVisible ? "隐藏地图景点名称" : "显示地图景点名称";
+      namesLabel.textContent = namesVisible ? "隐藏名称" : "显示名称";
+    }
+
+    namesButton.addEventListener("click", function () {
+      updateNames(!namesVisible);
+    });
+
     update(false);
+    updateNames(true);
     return {
       isHidden: function () { return hidden; },
-      setHidden: update
+      setHidden: update,
+      areNamesVisible: function () { return namesVisible; },
+      setNamesVisible: updateNames
     };
   }
 

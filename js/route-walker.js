@@ -4,7 +4,7 @@
   var NS = "http://www.w3.org/2000/svg";
   var MAP_WIDTH = 8091;
   var MAP_HEIGHT = 5669;
-  var CHAR_WIDTH = 180;
+  var CHAR_WIDTH = 188;
   var CHAR_HEIGHT = 260;
 
   var charEl = null;
@@ -57,15 +57,15 @@
     segDistances = distInfo.segDistances;
     totalDistance = distInfo.total;
 
-    // 匀速速度：全程约 10 秒
-    animDuration = 10000;
+    // 匀速速度：全程约 20 秒
+    animDuration = 20000;
 
     // 在路线 SVG 中添加小人
     var svg = document.querySelector(".route-svg");
     if (!svg) return;
 
     charEl = document.createElementNS(NS, "image");
-    charEl.setAttribute("href", "assets/characters/walker.png");
+    charEl.setAttribute("href", "assets/characters/walker-v2.png?v=20260825-1");
     charEl.setAttribute("width", String(CHAR_WIDTH));
     charEl.setAttribute("height", String(CHAR_HEIGHT));
     charEl.setAttribute("class", "route-walker");

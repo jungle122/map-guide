@@ -1,0 +1,135 @@
+.image-viewer[hidden] { display: none; }
+.image-viewer {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  color: #f3f6f2;
+}
+.image-viewer-backdrop { position: absolute; inset: 0; background: rgba(8,15,13,0.94); backdrop-filter: blur(12px); }
+.image-viewer-dialog {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: min(1180px, 100%);
+  height: min(860px, calc(100dvh - 32px));
+  overflow: hidden;
+  border: 1px solid rgba(226,235,223,0.18);
+  border-radius: 22px;
+  background: #101a17;
+  box-shadow: 0 34px 100px rgba(0,0,0,0.58);
+}
+.image-viewer-heading {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 44px;
+  align-items: center;
+  gap: 18px;
+  min-height: 70px;
+  padding: 12px 14px 12px 22px;
+  border-bottom: 1px solid rgba(226,235,223,0.12);
+  background: rgba(16,26,23,0.96);
+}
+.image-viewer-heading p { margin: 0 0 2px; color: #a9b9ad; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.16em; }
+.image-viewer-heading h2 { overflow: hidden; margin: 0; color: #f3f6f2; font-family: STKaiti, KaiTi, "Microsoft YaHei", sans-serif; font-size: clamp(1.05rem, 2vw, 1.35rem); text-overflow: ellipsis; white-space: nowrap; }
+.image-viewer-counter { color: #c8d4ca; font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+.image-viewer-close,
+.image-viewer-page,
+.image-viewer-controls button {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(226,235,223,0.18);
+  color: #f3f6f2;
+  background: rgba(226,235,223,0.08);
+  cursor: pointer;
+}
+.image-viewer-close { width: 42px; height: 42px; border-radius: 50%; font-size: 1.65rem; line-height: 1; }
+.image-viewer-close:hover,
+.image-viewer-page:hover:not(:disabled),
+.image-viewer-controls button:hover { border-color: rgba(226,235,223,0.42); background: rgba(226,235,223,0.16); }
+.image-viewer button:focus-visible { outline: 3px solid #d8a145; outline-offset: 3px; }
+.image-viewer-stage { position: relative; min-height: 0; overflow: hidden; background: #09110f; }
+.image-viewer-canvas { position: absolute; inset: 0; touch-action: none; }
+.image-viewer-canvas::after {
+  content: "正在加载图片…";
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  color: #c8d4ca;
+  background: rgba(16,26,23,0.84);
+  font-size: 0.76rem;
+  transform: translate(-50%, -50%);
+  transition: opacity 160ms ease;
+  pointer-events: none;
+}
+.image-viewer-canvas.is-ready::after,
+.image-viewer-canvas.has-error::after { opacity: 0; }
+.image-viewer-error {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(216,161,69,0.32);
+  border-radius: 12px;
+  color: #f0d8ae;
+  background: rgba(16,26,23,0.9);
+  transform: translate(-50%, -50%);
+}
+.image-viewer-page {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  width: 48px;
+  height: 64px;
+  border-radius: 15px;
+  font-size: 2.3rem;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+.image-viewer-previous { left: 16px; }
+.image-viewer-next { right: 16px; }
+.image-viewer-page:disabled { opacity: 0.28; cursor: default; }
+.image-viewer-controls {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-top: 1px solid rgba(226,235,223,0.12);
+  background: rgba(16,26,23,0.96);
+}
+.image-viewer-controls button { min-width: 42px; height: 38px; padding: 0 12px; border-radius: 999px; font-size: 1rem; }
+.image-viewer-controls .image-viewer-fit { min-width: 96px; font-size: 0.76rem; font-weight: 800; }
+body.image-viewer-open { overflow: hidden; }
+
+@media (max-width: 720px) {
+  .image-viewer { padding: 0; }
+  .image-viewer-dialog { width: 100%; height: 100dvh; border: 0; border-radius: 0; }
+  .image-viewer-heading {
+    grid-template-columns: minmax(0, 1fr) auto 42px;
+    min-height: calc(62px + env(safe-area-inset-top));
+    padding: max(8px, env(safe-area-inset-top)) 10px 8px 16px;
+  }
+  .image-viewer-heading p { display: none; }
+  .image-viewer-heading h2 { font-size: 1rem; }
+  .image-viewer-page { top: auto; bottom: 12px; width: 48px; height: 44px; border-radius: 999px; transform: none; }
+  .image-viewer-previous { left: 14px; }
+  .image-viewer-next { right: 14px; }
+  .image-viewer-controls { padding: 8px 74px max(8px, env(safe-area-inset-bottom)); }
+  .image-viewer-controls button { min-width: 38px; height: 38px; padding: 0 9px; }
+  .image-viewer-controls .image-viewer-fit { min-width: 84px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-viewer-canvas::after { transition: none; }
+}

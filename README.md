@@ -34,7 +34,7 @@ http://127.0.0.1:5500/?debug=1
 - 音视频互斥，关闭详情后暂停并清理
 - 调试模式下可临时新增、删除、清空和恢复点位，也可点击地图放置、拖动热点微调，并复制单个或全部坐标；所有调整仅在当前页面生效，刷新后恢复
 
-首批景点配置已拆分到 `js/spots/`：
+景点配置统一按 ID 拆分到 `js/spots/`，每个景点对应一个文件：
 
 - `shishijiao.js`：石狮脚（何诒燕堂码头）
 - `tianhou-xiancan.js`：天后宫、先蠺庙
@@ -42,7 +42,9 @@ http://127.0.0.1:5500/?debug=1
 - `jiyaxiang.js`：鸡鸭巷
 - `fanhou-geci.js`：藩侯何公祠
 - `lianjiqiao.js`：连济公园
-- `cultural-spots.js`：雪圃学校等 6 个童谣点，以及村史馆等 5 个文化介绍点位
+- `heshi-old-house.js`：何氏古屋
+- `jingsou-liang-ancestral-hall.js`：静叟梁公祠
+- 其他景点遵循相同规则，例如 `xuepu-school.js`、`artist-village.js`
 
 ## 正式资料替换
 

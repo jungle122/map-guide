@@ -40,7 +40,8 @@
     }
 
     function optionLabel(spot) {
-      return spot.isTemporary ? "临时 · " + spot.name : spot.mapNumber + " · " + spot.name;
+      if (spot.isTemporary) return "临时 · " + spot.name;
+      return spot.mapNumber == null ? spot.name : spot.mapNumber + " · " + spot.name;
     }
 
     function setStatus(message) {

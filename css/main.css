@@ -113,6 +113,9 @@ button:focus-visible, [tabindex]:focus-visible {
   margin: 0;
   white-space: nowrap;
   pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
 }
 
 .brand-intro-trigger {
@@ -133,6 +136,22 @@ button:focus-visible, [tabindex]:focus-visible {
   text-shadow: 0 1px 5px rgba(255,255,255,0.92);
   touch-action: manipulation;
 }
+.site-record-separator {
+  color: rgba(36,52,47,0.58);
+  font-size: 64px;
+  line-height: 1.2;
+  text-shadow: 0 1px 5px rgba(255,255,255,0.92);
+}
+.site-record-police {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.16em;
+}
+.site-record-police img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
 .map-tiles-active .site-record {
   position: relative;
   left: auto;
@@ -142,6 +161,11 @@ button:focus-visible, [tabindex]:focus-visible {
   transform-origin: 50% 100%;
 }
 .map-tiles-active .site-record a { font-size: 0.68rem; }
+.map-tiles-active .site-record-separator { font-size: 0.68rem; }
+.map-tiles-active .site-record-police img {
+  width: 0.68rem;
+  height: 0.68rem;
+}
 .site-record a:hover { color: var(--moss-dark); text-decoration: underline; }
 .site-record a:focus-visible {
   outline: 3px solid rgba(101,169,191,0.74);
